@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAntenasTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('antenas', function (Blueprint $table) {
+            $table->id();
+            $table->string('ip');
+            $table->string('sidd');
+            $table->string('frecuencia');
+            $table->string('frecuencias');
+            $table->string('canal');
+            $table->string('tipo');
+            $table->string('user');
+            $table->string('pass');
+            $table->string('ubicacion');
+            $table->string('modelo');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('antenas');
+    }
+}
