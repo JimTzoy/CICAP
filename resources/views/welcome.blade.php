@@ -1,100 +1,209 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
+ <style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+    width: 100%;
+    height: 100%;
+  }
+  .pricing-table{
+  background-color: #eee;
+  font-family: 'Montserrat', sans-serif;
+}
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+.pricing-table .block-heading {
+  padding-top: 50px;
+  margin-bottom: 40px;
+  text-align: center; 
+}
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+.pricing-table .block-heading h2 {
+  color: #3b99e0;
+}
 
-            .full-height {
-                height: 100vh;
-            }
+.pricing-table .block-heading p {
+  text-align: center;
+  max-width: 420px;
+  margin: auto;
+  opacity: 0.7; 
+}
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+.pricing-table .heading {
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+}
 
-            .position-ref {
-                position: relative;
-            }
+.pricing-table .item {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+  border-top: 2px solid #5ea4f3;
+  padding: 30px;
+  overflow: hidden;
+  position: relative; 
+}
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+.pricing-table .col-md-5:not(:last-child) .item {
+  margin-bottom: 30px; 
+}
 
-            .content {
-                text-align: center;
-            }
+.pricing-table .item button {
+  font-weight: 600; 
+}
 
-            .title {
-                font-size: 84px;
-            }
+.pricing-table .ribbon {
+  width: 160px;
+  height: 32px;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0px 2px 3px rgba(136, 136, 136, 0.25);
+  background: #4dbe3b;
+  transform: rotate(45deg);
+  position: absolute;
+  right: -42px;
+  top: 20px;
+  padding-top: 7px; 
+}
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+.pricing-table .item p {
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0.7; 
+}
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+.pricing-table .features .feature {
+  font-weight: 600; }
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+.pricing-table .features h4 {
+  text-align: center;
+  font-size: 18px;
+  padding: 5px; 
+}
+
+.pricing-table .price h4 {
+  margin: 15px 0;
+  font-size: 45px;
+  text-align: center;
+  color: #2288f9; 
+}
+
+.pricing-table .buy-now button {
+  text-align: center;
+  margin: auto;
+  font-weight: 600;
+  padding: 9px 0; 
+}
+
+  </style>
+<div class="row">
+    <div class="col-md-5">
+        <img src="img/internet.png" alt="" width="100%">
+    </div>
+    <div class="col-md-7">
+        <h5>Internet en casa</h5>
+        <p>Ofrecemos el servicio de instalacion de internet </p>
+    </div>
+</div>
+<div id="demo" class="carousel slide" data-ride="carousel">
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  <div class="carousel-inner" width="100%">
+    <div class="carousel-item active" width="100%">
+      <img src="img/cicap.jpg" alt="Los Angeles" width="1100" height="500">
+      <div class="carousel-caption">
+        <h3>Los Angeles</h3>
+        <p>We had such a great time in LA!</p>
+      </div>   
+    </div>
+    <div class="carousel-item">
+      <img src="img/cicap.jpg" alt="Chicago" width="1100" height="500">
+      <div class="carousel-caption">
+        <h3>Chicago</h3>
+        <p>Thank you, Chicago!</p>
+      </div>   
+    </div>
+    <div class="carousel-item">
+      <img src="img/cicap2.jpg" alt="New York" width="1100" height="500">
+      <div class="carousel-caption">
+        <h3>New York</h3>
+        <p>We love the Big Apple!</p>
+      </div>   
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+ <section class="pricing-table">
+        <div class="container">
+            <div class="block-heading">
+              <h2>Pricing Table</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-5 col-lg-4">
+                    <div class="item">
+                        <div class="heading">
+                            <h3>BASIC</h3>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <div class="features">
+                            <h4><span class="feature">Full Support</span> : <span class="value">No</span></h4>
+                            <h4><span class="feature">Duration</span> : <span class="value">30 Days</span></h4>
+                            <h4><span class="feature">Storage</span> : <span class="value">10GB</span></h4>
+                        </div>
+                        <div class="price">
+                            <h4>$25</h4>
+                        </div>
+                        <button class="btn btn-block btn-outline-primary" type="submit">BUY NOW</button>
+                    </div>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="col-md-5 col-lg-4">
+                    <div class="item">
+                        <div class="ribbon">Best Value</div>
+                        <div class="heading">
+                            <h3>PRO</h3>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <div class="features">
+                            <h4><span class="feature">Full Support</span> : <span class="value">Yes</span></h4>
+                            <h4><span class="feature">Duration</span> : <span class="value">60 Days</span></h4>
+                            <h4><span class="feature">Storage</span> : <span class="value">50GB</span></h4>
+                        </div>
+                        <div class="price">
+                            <h4>$50</h4>
+                        </div>
+                        <button class="btn btn-block btn-primary" type="submit">BUY NOW</button>
+                    </div>
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="col-md-5 col-lg-4">
+                    <div class="item">
+                        <div class="heading">
+                            <h3>PREMIUM</h3>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <div class="features">
+                            <h4><span class="feature">Full Support</span> : <span class="value">Yes</span></h4>
+                            <h4><span class="feature">Duration</span> : <span class="value">120 Days</span></h4>
+                            <h4><span class="feature">Storage</span> : <span class="value">150GB</span></h4>
+                        </div>
+                        <div class="price">
+                            <h4>$150</h4>
+                        </div>
+                        <button class="btn btn-block btn-outline-primary" type="submit">BUY NOW</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </section>
+@endsection

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use File;
 use App\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +54,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'img' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,13 +66,19 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        $user->roles()->attach(Role::where('name', 'user')->first());
-        return $user;
+    {   
+           
+            $imagen = $data['img'];
+            $nombre = time().$imagen->getClientOriginalName();
+            $imagen->move(public_path().'/img/perfil/',$nombre);
+                    
+            $user = User::create([
+                'name' => $data['name'],
+                'img' => $nombre,
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+            $user->roles()->attach(Role::where('name', 'user')->first());
+            return $user;
     }
 }

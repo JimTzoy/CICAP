@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -24,6 +24,19 @@
                                 @enderror
                             </div>
                         </div>
+                           <div class="form-group row{{ $errors->has('img') ? ' has-error' : '' }}">
+                        <label for="img" class="col-sm-2 col-form-label">INGRESE IMAGEN</label>
+
+                        <div class="col-sm-10">
+                            <input id="img" type="file" class="form-control" name="img" value="{{ old('img') }}" accept="image/*">
+
+                            @if ($errors->has('img'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('img') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
