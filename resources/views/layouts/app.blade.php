@@ -30,14 +30,14 @@
 <body>
     <style type="text/css" media="screen">
         .colornav{
-            background: rgba(246,246,246,1);
-background: -moz-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(8,42,143,1) 0%, rgba(28,127,166,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(246,246,246,1)), color-stop(0%, rgba(8,42,143,1)), color-stop(100%, rgba(28,127,166,1)));
-background: -webkit-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(8,42,143,1) 0%, rgba(28,127,166,1) 100%);
-background: -o-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(8,42,143,1) 0%, rgba(28,127,166,1) 100%);
-background: -ms-linear-gradient(left, rgba(246,246,246,1) 0%, rgba(8,42,143,1) 0%, rgba(28,127,166,1) 100%);
-background: linear-gradient(to right, rgba(246,246,246,1) 0%, rgba(8,42,143,1) 0%, rgba(28,127,166,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#1c7fa6', GradientType=1 );
+          background: rgba(204,22,83,1);
+background: -moz-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(204,22,83,1)), color-stop(99%, rgba(166,3,63,1)), color-stop(100%, rgba(166,3,63,1)));
+background: -webkit-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: -o-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: -ms-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: linear-gradient(to right, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', endColorstr='#a6033f', GradientType=1 );
         }
 
     </style>
@@ -98,7 +98,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', end
         </nav>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="background: #D9D9D9;">
       <div class="container-fluid">
         @yield('content')
       </div>

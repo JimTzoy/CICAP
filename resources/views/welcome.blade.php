@@ -98,6 +98,7 @@
 }
 
   </style>
+  <br><br><br>
 <div class="row">
     <div class="col-md-5">
         <img src="img/internet.png" alt="" width="100%">
