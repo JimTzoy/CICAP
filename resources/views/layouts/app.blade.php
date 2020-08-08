@@ -78,8 +78,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
                                 <a id="navbarDropdown" style="color: #fff; font-size: 0.7em;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        <span class="fas fa-tachometer-alt"> </span> Desboard
+                                    </a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><span class="fas fa-sign-out-alt"> </span> 
@@ -89,6 +92,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
                                 </div>
                             </li>
                         @endguest

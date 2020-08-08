@@ -27,7 +27,19 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <style type="text/css" media="screen">
+     .colornav{
+          background: rgba(204,22,83,1);
+background: -moz-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(204,22,83,1)), color-stop(99%, rgba(166,3,63,1)), color-stop(100%, rgba(166,3,63,1)));
+background: -webkit-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: -o-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: -ms-linear-gradient(left, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+background: linear-gradient(to right, rgba(204,22,83,1) 0%, rgba(166,3,63,1) 99%, rgba(166,3,63,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', endColorstr='#a6033f', GradientType=1 );
+        }
+  </style>
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light colornav">
     <?php $users = auth()->user();
         ?>
     <!-- Left navbar links -->
