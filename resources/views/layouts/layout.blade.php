@@ -190,10 +190,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('usuarios.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Perfil
+                Usuarios
               </p>
             </a>
           </li>
