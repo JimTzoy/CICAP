@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+  <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -101,8 +102,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
             </div>
         </nav>
 
-    <!-- Main content -->
-    <section class="content" style="background: #D9D9D9;">
+
+      <section class="content" style="background: #D9D9D9; margin-top: 60px;">
       <div class="container-fluid">
         @yield('content')
       </div>
@@ -133,6 +134,37 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
+
 <script src="dist/js/demo.js"></script>
+   <script src="js/toastr.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    @if(Session::has('message'))
+        var type="{{Session::get('alert-type','info')}}"
+
+        switch(type){
+            case 'info':
+                 toastr.info("{{ Session::get('message') }}");
+                 break;
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    @endif
+  $(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
+  
 </body>
 </html>

@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class plan extends Model
 {
-	protected $table =['plan']
+	protected $table ='plans';
     protected $fillable = [
-        'nombre', 'descripcion', 'precio',
+        'nombre', 'megas','descripcion', 'cantdispositivos', 'precio'
+
     ];
 }

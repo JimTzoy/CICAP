@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+  <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -191,9 +192,57 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
           </li>
           <li class="nav-item">
             <a href="{{ route('usuarios.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Usuarios
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="{{ route('tecnicos.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                Tecnicos
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="{{ route('contratos.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-file-signature"></i>
+              <p>
+                Contratos
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="{{ route('planes.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                Planes wifi
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="{{ route('antenas.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-broadcast-tower"></i>
+              <p>
+                Antenas
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('enlaces.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-broadcast-tower"></i>
+              <p>
+                Wifi L/D Zona
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('enlaces.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-broadcast-tower"></i>
+              <p>
+                Enlaces
               </p>
             </a>
           </li>
@@ -239,6 +288,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
     <section class="content">
       <div class="container-fluid">
         @yield('content')
+        
       </div>
     </section>
   </div>
@@ -281,5 +331,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+   <script src="js/toastr.min.js"></script>
+     <script src="js/popper.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    @if(Session::has('message'))
+        var type="{{Session::get('alert-type','info')}}"
+
+        switch(type){
+            case 'info':
+                 toastr.info("{{ Session::get('message') }}");
+                 break;
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    @endif
+  
+</script>
+  @yield('javascript')
 </body>
 </html>

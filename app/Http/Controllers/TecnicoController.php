@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\tecnico;
 use Illuminate\Http\Request;
-
+use DataTables;
 class TecnicoController extends Controller
 {
     /**
@@ -12,9 +12,21 @@ class TecnicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+         if ($request->ajax()) {
+            $data = tecnico::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+      
+        return view('tecnicos.index');
     }
 
     /**
