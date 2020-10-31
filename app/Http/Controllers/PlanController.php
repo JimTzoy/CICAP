@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\plan;
+use App\HistorialPlanes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,8 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         $request->user()->authorizeRoles(['admin']);
-
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
         $plan = new plan();
         $plan->nombre = $request->nombre;
         $plan->megas = $request->megas;
@@ -57,6 +59,11 @@ class PlanController extends Controller
         $plan->cantdispositivos = $request->cantdispositivos;
         $plan->precio = $request->precio;
         $plan->save();
+        $d = (int)$plan->id;
+        $historial = new HistorialPlanes();
+        $historial->id_user = $id_user;
+        $historial->id_plans = $d;
+        $historial->save();
         if ($plan == null) {
              $notification = array(
                     'message' => 'ERROR. El plan no se ha registrado', 

@@ -64,11 +64,12 @@ class PagosController extends Controller
         $pago->fechafin = $request->fechafin;
         $pago->id_contrato = $request->id;
         $pago->save();
-        $id = $request->id;
+        $d = (int)$pago->id;
         $historial = new HistorialPago();
         $historial->id_user = $id_user;
-        $historial->id_pago = $id;
+        $historial->id_pago = $d;
         $historial->save();
+        $id = $request->id;
         $estatus = "ACTIVO";
         $contrato = Contratos::findOrFail($id);
         $contrato->fechainicio = $request->fechainicio;

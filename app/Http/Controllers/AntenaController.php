@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Antena;
+use App\HistorialAntenas;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,8 @@ class AntenaController extends Controller
     public function store(Request $request)
     {
          $request->user()->authorizeRoles(['admin','tecnico']);
+         $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
          $antena = new Antena();
          $antena->ip = $request->ip;
          $antena->nombre = $request->nombre;
@@ -70,6 +73,11 @@ class AntenaController extends Controller
          $antena->capacidad = $request->capacidad;
          $antena->conectadoa = $request->conectadoa;
          $antena->save();
+        $d = (int)$antena->id;
+        $historial = new HistorialAntenas();
+        $historial->id_user = $id_user;
+        $historial->id_antenas = $d;
+        $historial->save();
          if ($antena == null) {
              $notification = array(
                     'message' => 'ERROR. El antena no se ha registrado', 
