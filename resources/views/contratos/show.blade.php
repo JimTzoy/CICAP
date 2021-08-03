@@ -14,6 +14,7 @@
                     </div>
                     <div class="col-md-3" style="text-align: center;">
                         <div class="btn-group" role="group">
+                            <a href="{{route('index', $contrato->id)}}" class="btn btn-info">PAGAR</a>
                             <a href="{{action('ContratosController@edit', $contrato->id)}}" class="btn btn-primary">EDITAR</a>
                             <form action="{{action('ContratosController@destroy', $contrato->id)}}" method="post">
                                 {{csrf_field()}}

@@ -8,7 +8,7 @@ class Pagos extends Model
 {
     protected $table ='pagos';
     protected $fillable = [
-        'fechapago', 'cantidad','observacion', 'id_contrato', 'fechainicio', 'fechafin'
+        'fechapago', 'cantidad','observacion', 'id_contrato','id_user','idbanco', 'fechainicio', 'fechafin'
 
     ];
 }

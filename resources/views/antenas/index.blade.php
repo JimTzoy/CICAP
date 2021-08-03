@@ -92,11 +92,11 @@
   echo "</thead>";
   echo "<tbody>";
   foreach ($antena as $a) {
-                echo "<tr class=\"";
+                echo "<tr>";
+                echo "<td  class=\"";
                 echo $a->status;    
                 echo "\"";
                  echo ">";
-                echo "<td>";
                     echo $a->id;
                 echo "</td>";
                 echo "<td>";

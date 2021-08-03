@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Contratos;
 use App\Pagos;
+use App\HistorialPago;
+use App\Ingreso;
 use Carbon\Carbon;
+use App\HistorialContratos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +29,9 @@ class ContratosController extends Controller
      */
     public function index(Request $request)
     {
-        setlocale(LC_ALL,"es_ES"); 
-        Carbon::setLocale('es');
         $request->user()->authorizeRoles(['admin']);
-        $contrato = Db::table('contratos')->join('antenas', 'antenas.id','=','contratos.antena_id')->join('plans', 'plans.id', '=', 'contratos.plan_id')->join('users','users.id','=','contratos.tecnico_id')->select('contratos.id','contratos.numerocliente','contratos.nombrecompleto',   'contratos.domicilio' ,'contratos.telefono', 'contratos.ipcliente' ,'contratos.ipantena',  'contratos.fechacontrato' , 'contratos.fechainicio',  'contratos.fechafin'  ,'plans.nombre as plan_id', 'contratos.instalacion','plans.precio', 'antenas.ip as antena_id' ,'users.name as tecnico_id', 'contratos.status', 'contratos.observacion'  ,'contratos.created_at', 'contratos.updated_at')->get();
+          $nombrecompleto = $request->get('busqueda');
+        $contrato = Db::table('contratos')->join('antenas', 'antenas.id','=','contratos.antena_id')->join('plans', 'plans.id', '=', 'contratos.plan_id')->join('users','users.id','=','contratos.tecnico_id')->select('contratos.id','contratos.numerocliente','contratos.nombrecompleto',   'contratos.domicilio' ,'contratos.telefono', 'contratos.ipcliente' ,'contratos.ipantena',  'contratos.fechacontrato' , 'contratos.fechainicio',  'contratos.fechafin'  ,'plans.nombre as plan_id', 'contratos.instalacion','plans.precio', 'antenas.ip as antena_id' ,'users.name as tecnico_id', 'contratos.status', 'contratos.observacion'  ,'contratos.created_at', 'contratos.updated_at')->where('nombrecompleto','like', "%$nombrecompleto%")->orderBy('contratos.numerocliente','ASC')->paginate(10);
 
         return view('contratos.index',['contrato'=>$contrato]);
     }
@@ -78,11 +80,25 @@ class ContratosController extends Controller
         $contrato->observacion = $request->observacion;
         $contrato->save();
         $d = (int)$contrato->id;
+        $accion = "REGISTRADO";
+        $historial = new HistorialContratos();
+        $historial->id_user = $id_user;
+        $historial->id_contratos = $d;
+        $historial->accion = $accion;
+        $historial->save();
         $o = "POR CONCEPTO DE INSTALACIÓN, CONFIGURACIÓN, RENTA DE EQUIPO Y PRIMERA MENSUALIDAD";
-        $pago = new Pagos();
+        $p = "Ingreso";
         $h = $request->instalacion;
         $j = $request->cantidad;
         $sumahj = $h + $j;
+        $ingreso = new Ingreso();
+        $ingreso->cantidad = $sumahj;
+        $ingreso->descripcion = $o;
+        $ingreso->tipo = $p;
+        $ingreso->fecha = $request->fechacontrato;
+        $ingreso->id_user = $id_user;
+        $ingreso->save();
+        $pago = new Pagos();
         $pago->cantidad = $sumahj;
         $pago->fechapago = $request->fechacontrato;
         $pago->observacion = $o;
@@ -91,6 +107,12 @@ class ContratosController extends Controller
         $pago->id_contrato = $d;
         $pago->save();
         $a = (int)$pago->id;
+        $accionp = "REGISTRO";
+        $historialp = new HistorialPago();
+        $historialp->id_user = $id_user;
+        $historialp->id_pago = $a;
+        $historialp->accion = $accionp;
+        $historialp->save();
         if ($contrato == null) {
              $notification = array(
                     'message' => 'ERROR. El contrato no se ha registrado', 
@@ -146,11 +168,27 @@ class ContratosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Contratos::find($id)->update($request->all());
-        $notification = array(
+        $userid[] = Auth::user();
+        $id_user = $userid[0]['id'];
+        $updates = Contratos::find($id)->update($request->all());
+        if ($updates == TRUE) {
+            $accion = "ACTUALIZADO";
+            $historial = new HistorialContratos();
+            $historial->id_user = $id_user;
+            $historial->id_contratos = $id;
+            $historial->accion = $accion;
+            $historial->save();
+            $notification = array(
                 'message' => 'CONTRATO ACTUALIZADO EXITOSAMENTE', 
                 'alert-type' => 'success');
          return redirect()->action('ContratosController@show', [$id])->with($notification);  
+        }else{
+            $notification = array(
+                'message' => 'NADA ACTUALIZADO', 
+                'alert-type' => 'success');
+            return redirect()->action('ContratosController@show', [$id])->with($notification);  
+        }
+        
     }
 
     /**
@@ -159,15 +197,32 @@ class ContratosController extends Controller
      * @param  \App\Contratos  $contratos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contratos $contratos)
+    public function destroy($id)
     {
-        //
+        Contratos::find($id)->delete();
+            $notification = array(
+                'message' => 'CONTRATO ELIMINADO EXITOSAMENTE', 
+                'alert-type' => 'success');
+            return redirect()->action('ContratosController@index')->with($notification);
+
     }
+    /**
+     * FUNCION QUE SIRVE PARA PASAR AL ESTADO COMO SUSPENDIDO
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public function suspender($id){
+        $userid[] = Auth::user();
+        $id_user = $userid[0]['id'];
         $estatus = "SUSPENDIDO";
         $contrato = Contratos::findOrFail($id);
         $contrato->status = $estatus;
         $contrato->save();
+        $historial = new HistorialContratos();
+            $historial->id_user = $id_user;
+            $historial->id_contratos = $id;
+            $historial->accion = $estatus;
+            $historial->save();
         if ($contrato == null) {
              $notification = array(
                     'message' => 'ERROR. El contrato no se ha suspendido', 
@@ -182,10 +237,17 @@ class ContratosController extends Controller
 
     }
     public function regalo($id){
+        $userid[] = Auth::user();
+        $id_user = $userid[0]['id'];
         $estatus = "REGALO";
         $contrato = Contratos::findOrFail($id);
         $contrato->status = $estatus;
         $contrato->save();
+        $historial = new HistorialContratos();
+            $historial->id_user = $id_user;
+            $historial->id_contratos = $id;
+            $historial->accion = $estatus;
+            $historial->save();
         if ($contrato == null) {
              $notification = array(
                     'message' => 'ERROR. El contrato no se ha suspendido', 
@@ -200,10 +262,17 @@ class ContratosController extends Controller
 
     }
     public function cancelar($id){
+        $userid[] = Auth::user();
+        $id_user = $userid[0]['id'];
         $estatus = "CANCELADO";
         $contrato = Contratos::findOrFail($id);
         $contrato->status = $estatus;
         $contrato->save();
+        $historial = new HistorialContratos();
+            $historial->id_user = $id_user;
+            $historial->id_contratos = $id;
+            $historial->accion = $estatus;
+            $historial->save();
         if ($contrato == null) {
              $notification = array(
                     'message' => 'ERROR. El contrato no se ha suspendido', 
@@ -293,5 +362,15 @@ class ContratosController extends Controller
     
         return $pdf->download('CONTRATO_DE_INTERNET'.'.pdf');
     }
+public function buscar($busqueda)
+{
+    $resultado = Contratos::where("nombrecompleto", "LIKE", "%{$busqueda}%");
+      return view('contratos.buscar',['resultado'=>$resultado]);
+}
+ 
+public function resultado()
+{
+  return view('contratos.resultado');
+}
 
 }

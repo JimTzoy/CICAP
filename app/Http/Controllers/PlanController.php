@@ -85,9 +85,10 @@ class PlanController extends Controller
      * @param  \App\plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function show(plan $plan)
+    public function show(Request $request, $id)
     {
-        //
+        $plan = plan::find($id);
+        return view('planes.show', compact('plan'));
     }
 
     /**
@@ -98,7 +99,8 @@ class PlanController extends Controller
      */
     public function edit(Request $reques, $id)
     {
-       $plan = plan::find($id);
+        $request->user()->authorizeRoles(['admin']);
+        $plan = plan::find($id);
         return view('planes.edit',compact('plan'));
     }
 

@@ -178,8 +178,8 @@
                             <div class="col-md-12">
                                 <select id="instalacion" class="form-control" name="instalacion" value="{{ old('instalacion') }}" required autofocus>
                                         <option value=""><---Seleccione una opción---></option>
-                                            <option value="650">900 Pesos</option>
-                                            <option value="900">1200 Pesos</option>
+                                            <option value="950">950 Pesos</option>
+                                            <option value="1200">1200 Pesos</option>
                                 </select>
                                 @if ($errors->has('instalacion'))
                                     <span class="help-block">
@@ -208,8 +208,10 @@
                                         echo "<option value=\"";
                                         echo $p->id;
                                         echo "\">";
-                                        echo $p->nombre."  ";
-                                        echo $p->megas."Megas";
+                                        echo $p->nombre." / ";
+                                        echo $p->megas." Megas ";
+                                        echo " / $ ";
+                                        echo $p->precio;
                                         echo"</option>";
                                         }
                                         ?>

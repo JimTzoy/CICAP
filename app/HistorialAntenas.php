@@ -8,7 +8,7 @@ class HistorialAntenas extends Model
 {
     protected $table ='historial_antenas';
     protected $fillable = [
-        'id_user', 'id_antenas'
+        'id_user', 'id_antenas', 'accion'
 
     ];
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Pagos;
+use App\Banco;
 use App\Contratos;
+use Carbon\Carbon;
 use App\HistorialPago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,11 +30,46 @@ class PagosController extends Controller
     {
          $request->user()->authorizeRoles(['admin']);
          $ids = $id;
-        $pagos = Db::table('pagos')->select('id','fechapago', 'cantidad','observacion', 'id_contrato', 'fechainicio', 'fechafin', 'created_at'
-)->where('id_contrato','=',$id)->get();
+        $pagos = Db::table('pagos')->join('banco','banco.id','=','pagos.idbanco')->select('pagos.id','pagos.fechapago', 'pagos.cantidad','pagos.observacion', 'pagos.id_contrato', 'pagos.fechainicio', 'pagos.fechafin', 'pagos.created_at','banco.nbanco')->where('pagos.id_contrato','=',$id)->get();
         $contra = Db::table('contratos')->select('fechainicio', 'fechafin')->where('id','=',$id)->get();
-        return view('pagos.index', compact('ids'), ['pagos'=>$pagos, 'contra'=>$contra]);
-    } 
+        $banco = Db::table('banco')->select('id','nbanco')->get();
+        return view('pagos.index', compact('ids'), ['pagos'=>$pagos, 'contra'=>$contra,'banco'=>$banco]);
+    }
+    /**
+     * [historial description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     *     public function historial(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin']);
+        $carbon = new \Carbon\Carbon();
+        $fecha = $carbon->now()->toDateString();
+        $hora =  $carbon->now()->toTimeString();  
+        $pagos = Db::table('pagos')->join('users','users.id','=','pagos.id_user')->select(Db::raw('SUM(pagos.cantidad) as cantidad'),'users.name','users.id as id_user','pagos.fechapago')->where('fechapago','=',$fecha)->groupBy('id_user')->get();
+    
+        return view('pagos.historial', ['pagos'=>$pagos]);
+    }
+     */
+    public function historial(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin']);
+        $carbon = new \Carbon\Carbon();
+        $fecha = $carbon->now()->toDateString();
+        $hora =  $carbon->now()->toTimeString();  
+        $pagos = Db::table('pagos')->join('users','users.id','=','pagos.id_user')->select('pagos.cantidad','users.name','users.id as id_user','pagos.fechapago')->get();
+    
+        return view('pagos.historial', ['pagos'=>$pagos]);
+    }
+    public function detalles(Request $request, $id_user){
+        $request->user()->authorizeRoles(['admin']);
+        $fechainicio = $request->get('fechainicio');
+        $pagos = Db::table('pagos')->join('contratos','contratos.id','=','pagos.id_contrato')->join('users','users.id','=','pagos.id_user')->select('pagos.id','contratos.nombrecompleto','pagos.cantidad','pagos.fechapago')->where('pagos.id_user','=',$id_user,'pagos.fechapago','=',$fechainicio)->paginate(10);
+
+        $total = Db::table('pagos')->join('contratos','contratos.id','=','pagos.id_contrato')->join('users','users.id','=','pagos.id_user')->where('pagos.id_user','=',$id_user)->orWhere('pagos.fechapago','=',$fechainicio)->sum('pagos.cantidad');
+         
+        return view('pagos.detalles',compact('total'), ['pagos'=>$pagos]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -54,8 +91,13 @@ class PagosController extends Controller
     public function store(Request $request)
     {
         $request->user()->authorizeRoles(['admin']);
+        $id = $request['idbanco'];
+        $capitalb = Banco::where('id','=',$id)->value('cantidad');
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
+        $cantidada = $request['cantidad'];
+        $totalcapital = $capitalb + $cantidada;
+
         $pago = new Pagos();
         $pago->cantidad = $request->cantidad;
         $pago->fechapago = $request->fechapago;
@@ -63,11 +105,14 @@ class PagosController extends Controller
         $pago->fechainicio = $request->fechainicio;
         $pago->fechafin = $request->fechafin;
         $pago->id_contrato = $request->id;
+        $pago->id_user = $id_user;
+        $pago->idbanco = $request->idbanco;
         $pago->save();
         $d = (int)$pago->id;
         $historial = new HistorialPago();
         $historial->id_user = $id_user;
         $historial->id_pago = $d;
+        $historial->accion = "REGISTRO";
         $historial->save();
         $id = $request->id;
         $estatus = "ACTIVO";
@@ -76,6 +121,9 @@ class PagosController extends Controller
         $contrato->fechafin = $request->fechafin;
         $contrato->status = $estatus;
         $contrato->save();
+        $banco = Banco::findOrFail($id);
+        $banco->cantidad = $totalcapital;
+        $banco->save();
         if ($pago == null) {
              $notification = array(
                     'message' => 'ERROR. El pago no se guardo', 

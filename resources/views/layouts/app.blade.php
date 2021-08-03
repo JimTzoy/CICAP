@@ -2,7 +2,9 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width" />
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -43,10 +45,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
 
     </style>
     <div id="app">
-        <nav class="navbar navbar-expand-md colornav fixed-top">
+        <nav class="navbar navbar-expand-md  fixed-top colornav">
             <div class="container">
-                <a style="color: #fff; font-size: 2em;" class="navbar-brand" href="{{ url('/') }}">
-                    Internet CICAP                </a>
+                <a style="color: #fff; font-size: 2em " class="navbar-brand vvv" href="{{ url('/') }}">CICAP</a>
                 <button style="color: #fff; font-size: 0.9em;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span style="color: #fff;" class="fas fa-bars"></span>
                 </button>
@@ -67,12 +68,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
                                 }
                             </style>
                             <li class="nav-item">
-                                <a class="nav-link" style="color: #fff; font-size: 0.7em;" href="{{ route('login') }}"><span class="fas fa-sign-in-alt"> </span> Iniciar sesión</a>
+                              <a class="nav-link" style="color: #fff; font-size: 0.7em;" href="{{ url('/about') }}" title=""><span class="fas fa-question-circle"> </span> Acerca de</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" style="color: #fff; font-size: 0.7em;" href="{{ url('/contact') }}" title=""><span class="fas fa-address-card"> </span> Contacto</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" style="color: #fff; font-size: 0.7em;" href="{{ route('login') }}"><span class="fas fa-sign-in-alt"> </span> Iniciar sesión</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                               <!-- <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}" style="color: #fff; font-size: 0.7em;"><span class="fas fa-user"> </span> Registrarte</a>
-                                </li>
+                                </li>-->
                             @endif
                         @else
                             <li class="nav-item dropdown">
@@ -103,7 +110,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
         </nav>
 
 
-      <section class="content" style="background: #D9D9D9; margin-top: 60px;">
+      <section style="background: #D9D9D9; margin-top: 60px; width: 100%;">
       <div class="container-fluid">
         @yield('content')
       </div>

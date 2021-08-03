@@ -18,27 +18,30 @@
                   echo "<table class='table table-bordered'>";
                     echo "<thead>";
     echo "<tr>";
-      echo "<th scope=col>ID</th>";
+      echo "<th scope=col>#</th>";
       echo "<th scope=col>FECHA PAGO</th>";
       echo "<th scope=col>CANTIDAD</th>";
+      echo "<th scope=col>BANCO</th>";
       echo "<th scope=col>OBSERVACIONES</th>";
       echo "<th scope=col>FECHA INICIO</th>";
       echo "<th scope=col>FECHA FIN</th>";
-      echo "<th scope=col>FECHA CREADO</th>";
       echo "<th scope=col>ACCIONES</th>";
     echo "</tr>";
   echo "</thead>";
   echo "<tbody>";
-            foreach ($pagos as $p) {
+            foreach ($pagos as $key => $p) {
                 echo "<tr>";
                 echo "<td>";
-                    echo $p->id;
+                    echo $key+1;
                 echo "</td>";
                 echo "<td>";
                     echo date('d-m-Y', strtotime($p->fechapago));
                 echo "</td>";
                  echo "<td>";
                     echo "<p>".$p->cantidad." Pesos</p>";
+                echo "</td>";
+                echo "<td>";
+                    echo $p->nbanco;
                 echo "</td>";
                 echo "<td>";
                     echo $p->observacion;
@@ -49,14 +52,11 @@
                 echo "<td>";
                     echo date('d-m-Y', strtotime($p->fechafin));
                 echo "</td>";
-                echo "<td>";
-                    echo $p->created_at;
-                echo "</td>";
              
                ?>
                 <td>
                 <div class="btn-group" role="group">
-                <a href="{{action('ContratosController@formato', $p->id)}}" class="btn btn-primary">VER RECIBO</a>
+                <a href="{{action('ContratosController@formato', $p->id)}}" class="btn btn-primary">RECIBO</a>
                 <form action="{{action('PagosController@destroy', $p->id)}}" method="post">
                    {{csrf_field()}}
                    <input name="_method" type="hidden" value="DELETE">
@@ -128,6 +128,29 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('idbanco') ? ' has-error' : '' }}">
+                                    <label for="idbanco" class="col-md-12 control-label">Banco</label>
+
+                                    <div class="col-md-12">
+                                        <select id="idbanco" class="form-control" name="idbanco" value="{{ old('idbanco') }}" required autofocus>
+                                            <option value=""><---Seleccione una opción---></option>
+                                            <?php
+                                            foreach ($banco as $b) {
+                                            echo "<option value=\"";
+                                            echo $b->id;
+                                            echo "\">";
+                                            echo $b->nbanco;
+                                            echo"</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                        @if ($errors->has('idbanco'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('idbanco') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                           <div class="form-group{{ $errors->has('observacion') ? ' has-error' : '' }}">
                             <label for="observacion" class="col-md-12 control-label">OBSERVACIONES</label>
 

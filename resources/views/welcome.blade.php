@@ -128,31 +128,47 @@
   font-weight: 600;
   padding: 9px 0; 
 }
-
+.carousel-item img{
+  width: 100%;
+}
+@media (max-width: 600px) {
+  .carousel-item img{
+  width: 100%;
+  height: 200px,
+}
+}
   </style>
-<div id="demo" class="carousel slide" data-ride="carousel">
+<div class="container-fluid" style="width: 100%">
+  <div id="demo" class="carousel slide" data-ride="carousel">
   <ul class="carousel-indicators">
     <li data-target="#demo" data-slide-to="0" class="active"></li>
     <li data-target="#demo" data-slide-to="1"></li>
     <li data-target="#demo" data-slide-to="2"></li>
+     <li data-target="#demo" data-slide-to="3"></li>
   </ul>
   <div class="carousel-inner" width="100%">
     <div class="carousel-item active" width="100%">
+      <img src="img/img9.png"  width="1100" height="500">
+      <div class="carousel-caption">
+        <a href="{{ url('/contacto') }}" class="btn btn-danger">Contactanos</a>
+      </div>   
+    </div>
+    <div class="carousel-item" width="100%">
       <img src="img/img1.png"  width="1100" height="500">
       <div class="carousel-caption">
-        <a href="" class="btn btn-danger">Contactanos</a>
+        <a href="{{ url('/contacto') }}" class="btn btn-danger">Contactanos</a>
       </div>   
     </div>
-    <div class="carousel-item">
-      <img src="img/img4.png">
+    <div class="carousel-item" width="100%">
+      <img src="img/img2.png" width="1100" height="500">
       <div class="carousel-caption">
-        <a href="" title="" class="btn btn-danger">Mas información</a>
+        <a href="{{ url('/cambiar') }}" title="" class="btn btn-danger">Mas información</a>
       </div>   
     </div>
-    <div class="carousel-item">
-      <img src="img/img3.png" >
+    <div class="carousel-item" width="100%"> 
+      <img src="img/img4.png" width="1100" height="500">
       <div class="carousel-caption">
-        <a href="" title="" class="btn btn-danger">Mas información</a>
+        <a href="{{ url('/largadistancia') }}" title="" class="btn btn-danger">Mas información</a>
       </div>   
     </div>
   </div>
@@ -163,8 +179,16 @@
     <span class="carousel-control-next-icon"></span>
   </a>
 </div>
+</div>
 
- <section class="pricing-table">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+          <div class="col-md-8">
+             <section class="pricing-table">
         <div class="container">
             <div class="block-heading">
               <h2>Tabla de precios</h2>
@@ -177,17 +201,16 @@
                         <div class="heading">
                             <h3>WIFI 1</h3>
                         </div>
-                       <p>El precio mostrado no incluye la instalación y renta de equipo</p>
+                       <p>El precio mostrado no incluye la instalación </p>
                        <div class="features">
                             <h4><span class="feature">Velocidad</span> : <span class="value">4 Megas</span></h4>
-                            <h4><span class="feature">Duración</span> : <span class="value">30 Dias</span></h4>
                             <!--<h4><span class="feature">Conecta hasta</span> : <span class="value">5 Dispositivos</span></h4>-->
                         </div>
                         <div class="price">
                             <h4>$ 300</h4>
                             <h3>al mes</h3>
                         </div>
-                        <button class="btn btn-block btn-danger" type="submit">Contratar</button>
+                        <a href="{{ url('/contacto') }}" class="btn btn-block btn-danger" >Contratar</a>
                     </div>
                 </div>
                 <div class="col-md-5 col-lg-4">
@@ -195,17 +218,15 @@
                         <div class="heading">
                             <h3>WIFI 2</h3>
                         </div>
-                        <p>El precio mostrado no incluye la instalación y renta de equipo</p>
+                        <p>El precio mostrado no incluye la instalación</p>
                         <div class="features">
-                            <h4><span class="feature">Velocidad</span> : <span class="value">6 Megas</span></h4>
-                            <h4><span class="feature">Duración</span> : <span class="value">30 Dias</span></h4>
-                            <!--<h4><span class="feature">Conecta hasta</span> : <span class="value">3 Dispositivos</span></h4>-->
+                            <h4><span class="feature">Velocidad</span> : <span class="value">6 Megas</span></h4>                            <!--<h4><span class="feature">Conecta hasta</span> : <span class="value">3 Dispositivos</span></h4>-->
                         </div>
                         <div class="price">
                             <h4>$350</h4>
                             <h3>al mes</h3>
                         </div>
-                        <button class="color btn btn-block btn-outline-danger" type="submit">Contratar</button>
+                       <a href="{{ url('/contacto') }}" class="btn btn-block btn-danger" >Contratar</a>
                     </div>
                 </div>
                 <div class="col-md-5 col-lg-4">
@@ -213,17 +234,16 @@
                         <div class="heading">
                             <h3>WIFI 3</h3>
                         </div>
-                       <p>El precio mostrado no incluye la instalación y renta de equipo</p>
+                       <p>El precio mostrado no incluye la instalación</p>
                        <div class="features">
                             <h4><span class="feature">Velocidad</span> : <span class="value">8 Megas</span></h4>
-                            <h4><span class="feature">Duración</span> : <span class="value">30 Dias</span></h4>
                             <!--<h4><span class="feature">Conecta hasta</span> : <span class="value">7 Dispositivos</span></h4>-->
                         </div>
                         <div class="price">
                             <h4>$ 400</h4>
                             <h3>al mes</h3>
                         </div>
-                        <button class="btn btn-block btn-danger" type="submit">Contratar</button>
+                        <a href="{{ url('/contacto') }}" class="btn btn-block btn-danger" >Contratar</a>
                     </div>
                 </div>
             </div>
@@ -233,17 +253,16 @@
                         <div class="heading">
                             <h3>WIFI PLUS 1</h3>
                         </div>
-                        <p>El precio mostrado no incluye la instalación y renta de equipo</p>
+                        <p>El precio mostrado no incluye la instalación </p>
                         <div class="features">
                             <h4><span class="feature">Velocidad</span> : <span class="value">10 Megas</span></h4>
-                            <h4><span class="feature">Duración</span> : <span class="value">30 Dias</span></h4>
                             <!--<h4><span class="feature">Conecta hasta</span> : <span class="value">10 Dispositivos</span></h4>-->
                         </div>
                         <div class="price">
                             <h4>$450</h4>
                             <h3>al mes</h3>
                         </div>
-                        <button class="btn btn-block btn-outline-danger" type="submit">Contratar</button>
+                        <a href="{{ url('/contacto') }}" class="btn btn-block btn-danger" >Contratar</a>
                     </div>
                 </div>
                 <div class="col-md-5 col-lg-4">
@@ -251,17 +270,16 @@
                         <div class="heading">
                             <h3>WIFI PLUS 2</h3>
                         </div>
-                        <p>El precio mostrado no incluye la instalación y renta de equipo</p>
+                        <p>El precio mostrado no incluye la instalación </p>
                         <div class="features">
                             <h4><span class="feature">Velocidad</span> : <span class="value">15 Megas</span></h4>
-                            <h4><span class="feature">Duración</span> : <span class="value">30 Dias</span></h4>
                             <!--<h4><span class="feature">Conecta hasta</span> : <span class="value">10 Dispositivos</span></h4>-->
                         </div>
                         <div class="price">
-                            <h4>$500</h4>
+                            <h4>$550</h4>
                             <h3>al mes</h3>
                         </div>
-                        <button class="btn btn-block btn-danger" type="submit">Contratar</button>
+                        <a href="{{ url('/contacto') }}" class="btn btn-block btn-danger" >Contratar</a>
                     </div>
                 </div>
                <div class="col-md-5 col-lg-4">
@@ -269,20 +287,48 @@
                         <div class="heading">
                             <h3>WIFI PLUS 3</h3>
                         </div>
-                        <p>El precio mostrado no incluye la instalación y renta de equipo</p>
+                        <p>El precio mostrado no incluye la instalación</p>
                         <div class="features">
                             <h4><span class="feature">Velocidad</span> : <span class="value">20 Megas</span></h4>
-                            <h4><span class="feature">Duración</span> : <span class="value">30 Dias</span></h4>
                             <!--<h4><span class="feature">Conecta hasta</span> : <span class="value">15 Dispositivos</span></h4>-->
                         </div>
                         <div class="price">
                             <h4>$650 <h3>al mes</h3></h4>
                             
                         </div>
-                        <button class="btn btn-block btn-outline-danger" type="submit">Contratar</button>
+                        <a href="{{ url('/contacto') }}" class="btn btn-block btn-danger" >Contratar</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+          </div>
+          <div class="col-md-4">
+            <br>
+            <style type="text/css" media="screen">
+              .contenidoiframe{
+                width: 420px;
+                text-align: center;
+              }
+              @media screen and (max-width:500px) {
+                .contenidoiframe{
+                  width: 300px;
+                  text-align: center;
+                }
+              }
+            </style>
+           <div class="contenidoiframe">
+             <div id="fb-root"></div>
+              <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v9.0" nonce="Lt9Y8wXE"></script>
+              <div class="fb-page" data-href="https://www.facebook.com/internetCICAP/" data-tabs="timeline" data-width="420" data-height="700" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/internetCICAP/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/internetCICAP/">Internet Cicap</a></blockquote></div>
+           </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @endsection
