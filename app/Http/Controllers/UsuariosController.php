@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 
 class UsuariosController extends Controller
 {
@@ -30,9 +31,11 @@ class UsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+        $rol = DB::table('roles')->select('id','name')->get();
+        return view('usuarios.create',['rol'=>$rol]);
     }
 
     /**
@@ -43,16 +46,31 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id[] = Auth::user();
+        
+        $ids = $user_id[0]['id'];
+        // print_r($user_id); 
+        $img = "user.png";
+        $tipo = $request['tipo'];
+        $this->validate($request,['name'=>'required','email'=>'required']);
+        $user = User::create(['name'=>$request->name, 'img'=>$img, 'email'=>$request->email, 'password'=>bcrypt($request->password)]);
+        $user
+        ->roles()
+        ->attach(Role::where('name', $tipo)->first());
+        $notification = array(
+                    'message' => 'EXITO. USUARIO REGISTRADO', 
+                    'alert-type' => 'success'        );
+
+            return redirect()->action('UsuariosController@index')->with($notification);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\tecnico  $tecnico
+     * @param  \App\User $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function show(tecnico $tecnico)
+    public function show($id)
     {
         //
     }
@@ -60,22 +78,22 @@ class UsuariosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\tecnico  $tecnico
+     * @param  \App\User  $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function edit(tecnico $tecnico)
+    public function edit($id)
     {
-        //
+      
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\tecnico  $tecnico
+     * @param  \App\User $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tecnico $tecnico)
+    public function update(Request $request)
     {
         //
     }
@@ -83,11 +101,15 @@ class UsuariosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\tecnico  $tecnico
+     * @param  \App\User  $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tecnico $tecnico)
+    public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        $notification = array(
+            'message' => 'USUARIO ELIMINADO EXITOSAMENTE', 
+            'alert-type' => 'success');
+        return redirect()->action('UsuariosController@index')->with($notification);
     }
 }

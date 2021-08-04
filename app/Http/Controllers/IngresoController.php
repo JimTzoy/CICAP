@@ -28,23 +28,53 @@ class IngresoController extends Controller
         $request->user()->authorizeRoles(['admin']);
         $carbon = new \Carbon\Carbon();
         $fecha = $carbon->now()->toDateString();
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->orderBy('ingresos.created_at','DESC')->paginate(10);
-        $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->sum('cantidad');
-        $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->sum('cantidad');
-        $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->sum('cantidad');
-        $bbvaegreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->sum('cantidad');
-        $coppelingreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->sum('cantidad');
-        $coppelegreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->sum('cantidad');
-        $tehuipangoingreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->sum('cantidad');
-        $tehuipangoegreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->sum('cantidad');
-        $efectivoingreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->sum('cantidad');
-        $efectivoegreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->sum('cantidad');
-        $ciberingreso = Db::table('ingresos')->where('idbanco','=','7')->where('tipo','=','Ingreso')->sum('cantidad');
-        $ciberegreso = Db::table('ingresos')->where('idbanco','=','7')->where('tipo','=','Egreso')->sum('cantidad');
-        
-        $positivo = Db::table('ingresos')->where('tipo','=','Ingreso')->sum('cantidad');
-        $negativo = Db::table('ingresos')->where('tipo','=','Egreso')->sum('cantidad');
-      return view('ingresos.index',compact('aztecaingreso','aztecaegreso','bbvaingreso','bbvaegreso','coppelingreso','coppelegreso','tehuipangoingreso','tehuipangoegreso','efectivoingreso','efectivoegreso','ciberingreso','ciberegreso'),['ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->orderBy('ingresos.created_at','DESC')->where('ingresos.fecha','=',$fecha)->paginate(10);
+        $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $bbvaegreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $coppelingreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $coppelegreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $tehuipangoingreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $tehuipangoegreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $efectivoingreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $efectivoegreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $ciberingreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $ciberegreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $positivo = Db::table('ingresos')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $negativo = Db::table('ingresos')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
+        $aztecain = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->sum('cantidad');
+        $aztecaeg = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->sum('cantidad');
+        $bbvain = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->sum('cantidad');
+        $bbvaeg = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->sum('cantidad');
+        $coppelin = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->sum('cantidad');
+        $coppeleg = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->sum('cantidad');
+        $tehuipangoin = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->sum('cantidad');
+        $tehuipangoeg = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->sum('cantidad');
+        $efectivoin = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->sum('cantidad');
+        $efectivoeg = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->sum('cantidad');
+        $ciberin = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->sum('cantidad');
+        $cibereg = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->sum('cantidad');
+        $totalcapital = $positivo - $negativo;
+        $ta = $aztecaingreso - $aztecaegreso;
+        $tb = $bbvaingreso - $bbvaegreso;
+        $tc = $coppelingreso - $coppelegreso;
+        $tt = $tehuipangoingreso - $tehuipangoegreso;
+        $te = $efectivoingreso - $efectivoegreso;
+        $tci = $ciberingreso -$ciberegreso;
+        $taz = $aztecain - $aztecaeg;
+        $tbb = $bbvain - $bbvaeg;
+        $tco = $coppelin - $coppeleg;
+        $tte = $tehuipangoin - $tehuipangoeg;
+        $tef = $efectivoin - $efectivoeg;
+        $tcib = $ciberin -$cibereg;
+        $t1 = $taz - $ta;
+        $t2 = $tbb - $tb;
+        $t3 = $tco - $tc;
+        $t4 = $tte - $tt;
+        $t5 = $tef - $te;
+        $t6 = $tci -$tci;
+      return view('ingresos.index',compact('totalcapital','t1','t2','t3','t4','t5','t6','ta','tb','tc','tt','te','tci','taz','tbb','tco','tte','tef','tcib','aztecaingreso','aztecaegreso','bbvaingreso','bbvaegreso','coppelingreso','coppelegreso','tehuipangoingreso','tehuipangoegreso','efectivoingreso','efectivoegreso','ciberingreso','ciberegreso'),['ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
     }
 
     /**
@@ -147,20 +177,64 @@ class IngresoController extends Controller
      * @param  \App\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
-    public function show(Ingreso $ingreso)
+    public function show($id)
     {
-        //
+        $ingreso = Ingreso::find($id);
+        return view('ingresos.show',compact('ingreso'));
     }
     public function buscar(Request $request){
         $request->user()->authorizeRoles(['admin']);
         $fechauno = $request->fechainicio;
         $fechados = $request->fechafin;
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaegreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelingreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelegreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoingreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoegreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoingreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoegreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberingreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberegreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $positivo = Db::table('ingresos')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $negativo = Db::table('ingresos')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
-        
+        $aztecain = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $aztecaeg = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvain = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaeg = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelin = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppeleg = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoin = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoeg = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoin = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoeg = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberin = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $cibereg = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $totalcapital = $positivo - $negativo;
+        $ta = $aztecaingreso - $aztecaegreso;
+        $tb = $bbvaingreso - $bbvaegreso;
+        $tc = $coppelingreso - $coppelegreso;
+        $tt = $tehuipangoingreso - $tehuipangoegreso;
+        $te = $efectivoingreso - $efectivoegreso;
+        $tci = $ciberingreso -$ciberegreso;
+        $taz = $aztecain - $aztecaeg;
+        $tbb = $bbvain - $bbvaeg;
+        $tco = $coppelin - $coppeleg;
+        $tte = $tehuipangoin - $tehuipangoeg;
+        $tef = $efectivoin - $efectivoeg;
+        $tcib = $ciberin -$cibereg;
+        $t1 = $taz - $ta;
+        $t2 = $tbb - $tb;
+        $t3 = $tco - $tc;
+        $t4 = $tte - $tt;
+        $t5 = $tef - $te;
+        $t6 = $tci -$tci;
 
-        return view('ingresos.buscar',['fechauno'=>$fechauno,'fechados'=>$fechados,'ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
+        return view('ingresos.buscar',compact('totalcapital','t1','t2','t3','t4','t5','t6','ta','tb','tc','tt','te','tci','taz','tbb','tco','tte','tef','tcib','aztecaingreso','aztecaegreso','bbvaingreso','bbvaegreso','coppelingreso','coppelegreso','tehuipangoingreso','tehuipangoegreso','efectivoingreso','efectivoegreso','ciberingreso','ciberegreso'),['fechauno'=>$fechauno,'fechados'=>$fechados,'ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
+    
     }
 
     /**
@@ -211,23 +285,106 @@ class IngresoController extends Controller
     }
     public function RESUMEN(Request $request, $fechauno,$fechados){    
         $request->user()->authorizeRoles(['admin']);
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaegreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelingreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelegreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoingreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoegreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoingreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoegreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberingreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberegreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $positivo = Db::table('ingresos')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $negativo = Db::table('ingresos')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
-        $total = $positivo - $negativo;
+        $aztecain = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $aztecaeg = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvain = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaeg = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelin = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppeleg = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoin = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoeg = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoin = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoeg = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberin = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $cibereg = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $totalcapital = $positivo - $negativo;
+        $ta = $aztecaingreso - $aztecaegreso;
+        $tb = $bbvaingreso - $bbvaegreso;
+        $tc = $coppelingreso - $coppelegreso;
+        $tt = $tehuipangoingreso - $tehuipangoegreso;
+        $te = $efectivoingreso - $efectivoegreso;
+        $tci = $ciberingreso -$ciberegreso;
+        $taz = $aztecain - $aztecaeg;
+        $tbb = $bbvain - $bbvaeg;
+        $tco = $coppelin - $coppeleg;
+        $tte = $tehuipangoin - $tehuipangoeg;
+        $tef = $efectivoin - $efectivoeg;
+        $tcib = $ciberin -$cibereg;
+        $t1 = $taz - $ta;
+        $t2 = $tbb - $tb;
+        $t3 = $tco - $tc;
+        $t4 = $tte - $tt;
+        $t5 = $tef - $te;
+        $t6 = $tci -$tci;
 
-        return view('ingresos.RESUMEN',compact('total'),['fechauno'=>$fechauno,'fechados'=>$fechados,'ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
-   
+        return view('ingresos.RESUMEN',compact('totalcapital','t1','t2','t3','t4','t5','t6','ta','tb','tc','tt','te','tci','taz','tbb','tco','tte','tef','tcib','aztecaingreso','aztecaegreso','bbvaingreso','bbvaegreso','coppelingreso','coppelegreso','tehuipangoingreso','tehuipangoegreso','efectivoingreso','efectivoegreso','ciberingreso','ciberegreso'),['fechauno'=>$fechauno,'fechados'=>$fechados,'ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
+    
     }
     public function imprimirresumen(Request $request, $fechauno,$fechados){
         $request->user()->authorizeRoles(['admin']);
-        $request->user()->authorizeRoles(['admin']);
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaegreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelingreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelegreso = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoingreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoegreso = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoingreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoegreso = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberingreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberegreso = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $positivo = Db::table('ingresos')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $negativo = Db::table('ingresos')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
-        $total = $positivo - $negativo;
-        $pdf = \PDF::loadView('ingresos.RESUMEN', compact('total'),['fechauno'=>$fechauno,'fechados'=>$fechados,'ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
-    
+        $aztecain = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $aztecaeg = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvain = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $bbvaeg = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppelin = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $coppeleg = Db::table('ingresos')->where('idbanco','=','3')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoin = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $tehuipangoeg = Db::table('ingresos')->where('idbanco','=','4')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoin = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $efectivoeg = Db::table('ingresos')->where('idbanco','=','5')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $ciberin = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Ingreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $cibereg = Db::table('ingresos')->where('idbanco','=','6')->where('tipo','=','Egreso')->where('fecha','<=',$fechados)->sum('cantidad');
+        $totalcapital = $positivo - $negativo;
+        $ta = $aztecaingreso - $aztecaegreso;
+        $tb = $bbvaingreso - $bbvaegreso;
+        $tc = $coppelingreso - $coppelegreso;
+        $tt = $tehuipangoingreso - $tehuipangoegreso;
+        $te = $efectivoingreso - $efectivoegreso;
+        $tci = $ciberingreso -$ciberegreso;
+        $taz = $aztecain - $aztecaeg;
+        $tbb = $bbvain - $bbvaeg;
+        $tco = $coppelin - $coppeleg;
+        $tte = $tehuipangoin - $tehuipangoeg;
+        $tef = $efectivoin - $efectivoeg;
+        $tcib = $ciberin -$cibereg;
+        $t1 = $taz - $ta;
+        $t2 = $tbb - $tb;
+        $t3 = $tco - $tc;
+        $t4 = $tte - $tt;
+        $t5 = $tef - $te;
+        $t6 = $tci -$tci;
+
+        $pdf = \PDF::loadView('ingresos.RESUMEN',compact('totalcapital','t1','t2','t3','t4','t5','t6','ta','tb','tc','tt','te','tci','taz','tbb','tco','tte','tef','tcib','aztecaingreso','aztecaegreso','bbvaingreso','bbvaegreso','coppelingreso','coppelegreso','tehuipangoingreso','tehuipangoegreso','efectivoingreso','efectivoegreso','ciberingreso','ciberegreso'),['fechauno'=>$fechauno,'fechados'=>$fechados,'ingreso'=>$ingreso,'positivo'=>$positivo,'negativo'=>$negativo]);
         return $pdf->download('RESUMEN'.'.pdf');
     }
 }

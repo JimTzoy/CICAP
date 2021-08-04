@@ -64,7 +64,7 @@
                           <div class="info-box-content">
                             <a href="{{route('ingresos.index')}}">
                             <span class="info-box-text">Resumen hoy</span>
-                            <span class="info-box-number">$ {{$pagos}}</span>
+                            <span class="info-box-number">$ <?php echo number_format($pagos, 2, '.', '');?></span>
                             </a>
                           </div>
                           <!-- /.info-box-content -->

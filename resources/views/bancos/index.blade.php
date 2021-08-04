@@ -91,7 +91,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f590df', end
 
                         <div class="info-box-content">
                         <span class="info-box-text">Capital</span>
-                          <span class="info-box-number"><h3>{{$capital}}</h3></span>
+                          <span class="info-box-number"><h3><?php echo number_format($capital, 2, '.', '');?></h3></span>
                         </div>
                         <!-- /.info-box-content -->
                         </div>
@@ -118,7 +118,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f590df', end
                                       <h5>BANCO <?php echo $c->nbanco; ?></h5>
                                   </div>
                                   <div class="card-body" style="text-align:center;">
-                                     <h1>$ <?php echo $c->cantidad; ?></h1>
+                                     <h1>$ <?php echo number_format($c->cantidad, 2, '.', '');?></h1>
                                      <h4><?php echo $c->updated_at; ?></h4>
                                   </div>
                                   <div class="card-footer">

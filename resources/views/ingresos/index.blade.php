@@ -3,16 +3,34 @@
 @section('content')
 <style type="text/css" media="screen">
   .ingreso{
-    background: #32D95C;
+    background: #80ff80;
   }
   .egreso{
-    background: #F21628;
+    background: #ff8080;
   }
   .dddd:hover{
      -webkit-box-shadow: -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
 -moz-box-shadow:    -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
 box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
   }
+  .BBVA{
+background: #0080c0;
+}
+.AZTECA{
+  background: #008040;
+}
+.BANCOPPEL{
+  background: #ffe375;
+}
+.TEHUIPANGO{
+  background: #fa5f56;
+}
+.EFECTIVO{
+  background: #93cede;
+}
+.CIBERCICAP{
+  background: #ff0080;
+}
 </style>
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -87,7 +105,7 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                       echo "egreso";
                     }               
                   echo "\"";
-                 echo ">";
+                 echo " scope=\"row\">";
                     if($c->tipo == 'Ingreso'){
                         echo "+";
                       }else{
@@ -117,7 +135,6 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                 <td>
                 <div class="btn-group btn-group-sm" role="group">
                 <a href="{{action('IngresoController@show', $c->id)}}" class="btn btn-primary">DETALLES</a>
-                <a href="{{route('suspender', $c->id)}}" class="btn btn-danger">ELIMINAR</a>
                 </div>
                 </td>
                 </tr>
@@ -125,6 +142,42 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                 <?php
                 }
                 ?>
+                 <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <td class="ingreso">INGRESO</td>
+                  <td>
+                    <h4>$ <?php echo number_format($positivo, 2, '.', '');?></h4>
+                  </td>
+                  <th></th>
+                </tr>
+                <tr>
+                <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <td class="egreso">EGRESO</td>
+                  <td>
+                   <h4> $ <?php echo number_format($negativo, 2, '.', '');?></h4>
+                  </td>
+                  <th></th>
+                </tr>
+                <tr>
+                <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <td class="capital">CAPITAL</td>
+                  <td>
+                   <h4> $ <?php echo number_format($totalcapital, 2, '.', '');?></h4>
+                  </td>
+                  <th></th>
+                </tr>
                 <?php
                 echo "</tbody>";
                 echo "</table>";       
@@ -135,51 +188,89 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th colspan="2">AZTECA</th>
-                      <th colspan="2">BBVA</th>
-                      <th colspan="2">COPPEL</th>
-                      <th colspan="2">TEHUIPANGO</th>
-                      <th colspan="2">EFECTIVO</th>
-                      <th colspan="2">CIBERCICAP</th>
+                      <th class="AZTECA" colspan="2">AZTECA $ <?php echo number_format($t1, 2, '.', ''); ?></th>
+                      <th class="BBVA" colspan="2">BBVA $ <?php echo number_format($t2, 2, '.', ''); ?></th>
+                      <th class="BANCOPPEL" colspan="2">COPPEL $ <?php echo number_format($t3, 2, '.', ''); ?></th>
+                      <th class="TEHUIPANGO" colspan="2">TEHUIPANGO $ <?php echo number_format($t4, 2, '.', ''); ?></th>
+                      <th class="EFECTIVO" colspan="2">EFECTIVO $ <?php echo number_format($t5, 2, '.', ''); ?></th>
+                      <th class="CIBERCICAP" colspan="2">CIBERCICAP $ <?php echo number_format($t6, 2, '.', ''); ?></th>
                     </tr>
                   </thead>
                   <tbody>
                   <tr>
-                  <th>
-                    $ <?php echo number_format($aztecaingreso, 2, '.', ''); ?>
-                  </th>
-                  <td>
+                  <td class="ingreso">
+                   $ <?php echo number_format($aztecaingreso, 2, '.', ''); ?>
+                  </td>
+                  <td class="egreso">
                    $ <?php echo number_format($aztecaegreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="ingreso">
                   $ <?php echo number_format($bbvaingreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="egreso">
                   $ <?php echo number_format($bbvaegreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="ingreso">
                   $ <?php echo number_format($coppelingreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="egreso">
                   $ <?php echo number_format($coppelegreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="ingreso">
                   $ <?php echo number_format($tehuipangoingreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="egreso">
                   $ <?php echo number_format($tehuipangoegreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="ingreso">
                   $ <?php echo number_format($efectivoingreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="egreso">
                   $ <?php echo number_format($efectivoegreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="ingreso">
                   $ <?php echo number_format($ciberingreso, 2, '.', ''); ?>
                   </td>
-                  <td>
+                  <td class="egreso">
                   $ <?php echo number_format($ciberegreso, 2, '.', ''); ?>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <strong>Capital</strong>
+                  </th>
+                  <td>
+                   $ <?php echo number_format($taz, 2, '.', ''); ?>
+                  </td>
+                  <td>
+                  <strong>Capital</strong>
+                  </td>
+                  <td>
+                  $ <?php echo number_format($tbb, 2, '.', ''); ?>
+                  </td>
+                  <td>
+                  <strong>Capital</strong>
+                  </td>
+                  <td>
+                  $ <?php echo number_format($tco, 2, '.', ''); ?>
+                  </td>
+                  <td>
+                  <strong>Capital</strong>
+                  </td>
+                  <td>
+                  $ <?php echo number_format($tte, 2, '.', ''); ?>
+                  </td>
+                  <td>
+                  <strong>Capital</strong>
+                  </td>
+                  <td>
+                  $ <?php echo number_format($tef, 2, '.', ''); ?>
+                  </td>
+                  <td>
+                  <strong>Capital</strong>
+                  </td>
+                  <td>
+                  $ <?php echo number_format($tcib, 2, '.', ''); ?>
                   </td>
                 </tr>
                   </tbody>

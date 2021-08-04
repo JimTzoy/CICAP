@@ -144,9 +144,10 @@ class PagosController extends Controller
      * @param  \App\Pagos  $pagos
      * @return \Illuminate\Http\Response
      */
-    public function show(Pagos $pagos)
+    public function show($id)
     {
-        //
+        $pagos = Pagos::find($id);
+        return view('pagos.show',compact('pagos'));
     }
 
     /**
@@ -154,32 +155,62 @@ class PagosController extends Controller
      *
      * @param  \App\Pagos  $pagos
      * @return \Illuminate\Http\Response
-     */
-    public function edit(Pagos $pagos)
+    
+    public function edit($id)
     {
-        //
+       $pago = Pagos::find($id);
+       return view('pagos.edit',compact('pago'));
     }
 
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Pagos  $pagos
      * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pagos $pagos)
+     
+    public function update(Request $request, $id)
     {
-        //
+        $userid[] = Auth::user();
+        $id_user = $userid[0]['id'];
+        $idcontrato = Pagos::where('id','=',$id)->get();
+        $idc = $idcontrato[0]['id_contrato'];
+        $updates = Pagos::find($id)->update($request->all());
+        if ($updates == TRUE) {
+            $accion = "ACTUALIZADO";
+            $historial = new HistorialContratos();
+            $historial->id_user = $id_user;
+            $historial->id_contratos = $id;
+            $historial->accion = $accion;
+            $historial->save();
+            $contrato = Contratos::findOrFail($idc);
+            $contrato->fechainicio = $request->fechainicio;
+            $contrato->fechafin = $request->fechafin;
+            $contrato->save();
+            $notification = array(
+                'message' => 'CONTRATO ACTUALIZADO EXITOSAMENTE', 
+                'alert-type' => 'success');
+         return redirect()->action('ContratosController@show', [$id])->with($notification);  
+        }else{
+            $notification = array(
+                'message' => 'NADA ACTUALIZADO', 
+                'alert-type' => 'success');
+            return redirect()->action('ContratosController@show', [$id])->with($notification);  
+        }
+        
     }
-
+    **/
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Pagos  $pagos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pagos $pagos)
+    public function destroy($id)
     {
-        //
+        Pagos::find($id)->delete();
+        $notification = array(
+            'message' => 'PAGO ELIMINADO EXITOSAMENTE', 
+            'alert-type' => 'success');
+        return back()->with($notification);
     }
 }

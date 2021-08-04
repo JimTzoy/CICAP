@@ -51,7 +51,7 @@
                 <div class="btn-group" role="group">
                 <a href="{{action('UsuariosController@edit', $u->id)}}" class="btn btn-primary">EDITAR</a>
                 <form action="{{action('UsuariosController@destroy', $u->id)}}" method="post">
-                   {{csrf_field()}}
+                   {{csrf_field()}} 
                    <input name="_method" type="hidden" value="DELETE">
  
                    <button class="btn btn-danger" type="submit">ELIMINAR</button>
