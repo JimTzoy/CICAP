@@ -170,36 +170,41 @@
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group{{ $errors->has('instalacion') ? ' has-error' : '' }}">
-                            <label for="instalacion" class="col-md-12 control-label">Costo Instalación</label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group{{ $errors->has('instalacion') ? ' has-error' : '' }}">
+                                <label for="instalacion" class="col-md-12 control-label">Costo Instalación</label>
 
-                            <div class="col-md-12">
-                                <select id="instalacion" class="form-control" name="instalacion" value="{{ old('instalacion') }}" required autofocus>
-                                        <option value=""><---Seleccione una opción---></option>
-                                            <option value="950">950 Pesos</option>
-                                            <option value="1200">1200 Pesos</option>
-                                </select>
-                                @if ($errors->has('instalacion'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('instalacion') }}</strong>
-                                    </span>
-                                @endif
+                                <div class="col-md-12">
+                                    <input id="instalacion" type="tex" class="form-control" name="instalacion" value="{{ old('instalacion') }}" required autofocus>
+                                    @if ($errors->has('instalacion'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('instalacion') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                        </div>
+                            <div class="col-md-2">
+                                <div class="form-group{{ $errors->has('cantidad') ? ' has-error' : '' }}">
+                                <label for="cantidad" class="col-md-12 control-label">Costo mensualidad</label>
+
+                                <div class="col-md-12">
+                                    <input id="cantidad" type="tex" class="form-control" name="cantidad" value="{{ old('cantidad') }}" required autofocus>
+                                    @if ($errors->has('cantidad'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('cantidad') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                </div>
+                            </div>
 
                         <div class="col-md-3">
                              <div class="form-group{{ $errors->has('plan_id') ? ' has-error' : '' }}">
                             <label for="plan_id" class="col-md-12 control-label">Plan</label>
 
                             <div class="col-md-12">
-                                <?php 
-                                    foreach ($precioplan as $precioplan) {
-                                        echo "<input name=\"cantidad\" type=\"hidden\" value=\"$precioplan->precio\">";
-                                    }
-                                ?>
                                 <select id="plan_id" class="form-control" name="plan_id" value="{{ old('plan_id') }}" required autofocus>
                                         <option value=""><---Seleccione una opción---></option>
                                         <?php
@@ -224,7 +229,7 @@
                             </div>
                         </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group{{ $errors->has('antena_id') ? ' has-error' : '' }}">
                             <label for="antena_id" class="col-md-12 control-label">Antena <a href="#" class="fas fa-question-circle" data-toggle="popover" data-trigger="focus" title="Antena" data-content="Elige de la lista la ip que registraste como su antena"></a></label>
 
@@ -249,7 +254,7 @@
                             </div>
                         </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group{{ $errors->has('observacion') ? ' has-error' : '' }}">
                             <label for="observacion" class="col-md-12 control-label">Observaciones</label>
 

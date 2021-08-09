@@ -87,7 +87,7 @@ class ContratosController extends Controller
         $historial->id_contratos = $d;
         $historial->accion = $accion;
         $historial->save();
-        $o = "POR CONCEPTO DE INSTALACIÓN, CONFIGURACIÓN, RENTA DE EQUIPO Y PRIMERA MENSUALIDAD";
+        $o = "POR CONCEPTO DE INSTALACIÓN, CONFIGURACIÓN, RENTA DE EQUIPO Y PRIMERA MENSUALIDAD ".$request->observacion;
         $p = "Ingreso";
         $h = $request->instalacion;
         $j = $request->cantidad;

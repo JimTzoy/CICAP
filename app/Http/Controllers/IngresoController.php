@@ -28,7 +28,7 @@ class IngresoController extends Controller
         $request->user()->authorizeRoles(['admin']);
         $carbon = new \Carbon\Carbon();
         $fecha = $carbon->now()->toDateString();
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->orderBy('ingresos.created_at','DESC')->where('ingresos.fecha','=',$fecha)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->orderBy('ingresos.created_at','DESC')->where('ingresos.fecha','=',$fecha)->paginate(200);
         $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
         $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','=',$fecha)->sum('cantidad');
         $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','=',$fecha)->sum('cantidad');
@@ -179,14 +179,15 @@ class IngresoController extends Controller
      */
     public function show($id)
     {
+        $ingresos = DB::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.fecha','ingresos.cantidad','ingresos.tipo','ingresos.img','ingresos.descripcion','users.name','banco.nbanco')->where('ingresos.id','=',$id)->get();
         $ingreso = Ingreso::find($id);
-        return view('ingresos.show',compact('ingreso'));
+        return view('ingresos.show',compact('ingreso'),['ingresos'=>$ingresos]);
     }
     public function buscar(Request $request){
         $request->user()->authorizeRoles(['admin']);
         $fechauno = $request->fechainicio;
         $fechados = $request->fechafin;
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(200);
         $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
@@ -275,7 +276,7 @@ class IngresoController extends Controller
      */
     public function formatoc(Request $request, $fechauno,$fechados){    
         $request->user()->authorizeRoles(['admin']);
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(200);
         $positivo = Db::table('ingresos')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $negativo = Db::table('ingresos')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $total = $positivo - $negativo;
@@ -285,7 +286,7 @@ class IngresoController extends Controller
     }
     public function RESUMEN(Request $request, $fechauno,$fechados){    
         $request->user()->authorizeRoles(['admin']);
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(200);
         $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
@@ -337,7 +338,7 @@ class IngresoController extends Controller
     }
     public function imprimirresumen(Request $request, $fechauno,$fechados){
         $request->user()->authorizeRoles(['admin']);
-        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(10);
+        $ingreso = Db::table('ingresos')->join('users','users.id','=','ingresos.id_user')->join('banco','banco.id','=','ingresos.idbanco')->select('ingresos.id','ingresos.cantidad','ingresos.descripcion','ingresos.tipo','ingresos.fecha' ,'users.name','banco.nbanco')->where('ingresos.fecha','>=',$fechauno)->where('ingresos.fecha','<=',$fechados)->paginate(200);
         $aztecaingreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $aztecaegreso = Db::table('ingresos')->where('idbanco','=','1')->where('tipo','=','Egreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');
         $bbvaingreso = Db::table('ingresos')->where('idbanco','=','2')->where('tipo','=','Ingreso')->where('fecha','>=',$fechauno)->where('fecha','<=',$fechados)->sum('cantidad');

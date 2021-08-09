@@ -39,7 +39,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <p>Siguiente pago:  <strong><?php echo strtoupper(strftime("%d de %B del %Y", strtotime(date('d-m-Y', strtotime($pa->fechafin))))); }?></strong>  (Pago por anticipado)</p>
-                        <p>Nota: Favor de anticipar su pago en CICAP con Alejandra, de lo contrario se cortará el servicio</p>
+                        <p>Nota: Favor de anticipar su pago en CICAP o a los numeros de cuenta correspondiente, de lo contrario se cortará el servicio</p>
                       </div>
                     </div>
                     <div class="row">
@@ -72,7 +72,7 @@
      
                       <p>Fallas: En el caso de tener problemas con su servicio favor de reportarlo, para poder darle 
                       solución a la brevedad posible para reponer los días perdidos a partir de su reporte.   </p> 
-                      <p>Cel. (WhatsApp):<strong> 272 7844107</strong></p>
+                      <p>Cel. (WhatsApp):<strong> 272 126 0141</strong></p>
 
                     </div>
                   </div>

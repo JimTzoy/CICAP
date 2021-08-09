@@ -6,6 +6,7 @@ use App\Pagos;
 use App\Banco;
 use App\Contratos;
 use Carbon\Carbon;
+use App\Ingreso;
 use App\HistorialPago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -114,9 +115,9 @@ class PagosController extends Controller
         $historial->id_pago = $d;
         $historial->accion = "REGISTRO";
         $historial->save();
-        $id = $request->id;
+        $idc = $request->id;
         $estatus = "ACTIVO";
-        $contrato = Contratos::findOrFail($id);
+        $contrato = Contratos::findOrFail($idc);
         $contrato->fechainicio = $request->fechainicio;
         $contrato->fechafin = $request->fechafin;
         $contrato->status = $estatus;
@@ -124,6 +125,16 @@ class PagosController extends Controller
         $banco = Banco::findOrFail($id);
         $banco->cantidad = $totalcapital;
         $banco->save();
+        $p = "Ingreso";
+        $ingreso = new Ingreso();
+        $ingreso->cantidad = $request->cantidad;
+        $ingreso->descripcion = $request->observacion;
+        $ingreso->tipo = $p;
+        $ingreso->fecha = $request->fechapago;
+        $ingreso->id_user = $id_user;
+        $ingreso->idbanco = $id;
+        $ingreso->save();
+        
         if ($pago == null) {
              $notification = array(
                     'message' => 'ERROR. El pago no se guardo', 
