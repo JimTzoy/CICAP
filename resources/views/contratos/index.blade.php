@@ -86,7 +86,7 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
       echo "<th scope=\"col\">#</th>";
       echo "<th scope=\"col\">NUMERO CLIENTE</th>";
       echo "<th scope=\"col\">NOMBRE</th>";
-      echo "<th scope=\"col\">IPCLIENTE</th>";
+      //echo "<th scope=\"col\">IPCLIENTE</th>";
       echo "<th scope=\"col\">IPANTENA</th>";
       echo "<th scope=\"col\">PLAN</th>";
       echo "<th scope=\"col\">TECNICO</th>";
@@ -115,12 +115,12 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                 echo "<td>";
                     echo $c->nombrecompleto;
                 echo "</td>";
-                echo "<td>";
+                /**echo "<td>";
                     echo "<a href=\"$c->ipcliente";
                     echo ":3141";
                     echo "\">".$c->ipcliente;
                     echo "</a>";
-                echo "</td>";
+                echo "</td>";**/
                 echo "<td>";
                     echo "<a href=\"$c->ipantena";
                     echo "\">".$c->ipantena;
@@ -144,11 +144,7 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                 <a href="{{route('index', $c->id)}}" class="btn btn-info">PAGAR</a>
                 <a href="{{route('suspender', $c->id)}}" class="btn btn-danger">SUSPENDER</a>
                 
-                </div>
-                <div class="btn-group" role="group">
-                <a href="{{route('cancelar', $c->id)}}"class="btn btn-danger">CANCELAR</a>
-                <a href="{{route('regalo', $c->id)}}" class="btn btn-dark">REGALO</a>
-                </div>
+
                 </td>
                 </tr>
                 <?php

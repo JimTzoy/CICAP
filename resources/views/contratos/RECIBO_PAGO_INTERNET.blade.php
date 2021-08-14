@@ -12,6 +12,7 @@
   <div class="container-fluid">
   	  <div class="row" style="font-size: 1.2em; font-family:  Lucida Console, Courier, monospace;">
         <div class="col-md-12">
+          <img src="http://internetcicap.com.mx/img/bannercicap.png" alt="">
             <div class="card">
                 <div class="card-body">
                   <div class="row">
@@ -61,17 +62,13 @@
                       <div class="col-md-12" >
                       	<img src="./img/img5.png" alt="" style="width: 100px;">
                          <p>Lucio Texcahua Zepahua</p>
-                      <p>Si su servicio presenta alguna falla, favor de reportelo al<strong> 272-126-01-41</strong> o al <strong>2722843738</strong></p>
+                      <p>Si su servicio presenta alguna falla, favor de reportelo al<strong> 272 126 0141</strong> o al <strong>272 284 3738</strong></p>
                       </div>
                     </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <h4 style="text-align: center;">CARACTERISTICAS DEL INTERNET </h4>
-                      <p><strong>Paquete Básico:</strong> Para un solo equipo e internet por cable.</p>
-                      <p style="line-height:1%;"><strong>Paquete Medio:</strong> Para uno a tres equipos con opción de Wifi.</p> 
-                      <p><strong>Paquete Plus:</strong> Para uno a tres equipos con opción de Wifi y más velocidad    </p>          
-                      <p>Nota: Para conectar más de un equipo y tener Wifi se requiere la instalación de un Reuter   </p>        
-                      <p>Fallas: En el caso de tener problemas con su servicio favor de reportarlo, para poder darle 
+                      <h4 style="text-align: center;">FALLAS</h4>
+                      <p>En el caso de tener problemas con su servicio favor de reportarlo, para poder darle 
                       solución a la brevedad posible para reponer los días perdidos a partir de su reporte.   </p> 
                       <p style="line-height:1%;">Cel. (WhatsApp):<strong> 272 126 0141</strong></p>
 

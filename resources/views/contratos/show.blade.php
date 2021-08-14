@@ -22,6 +22,11 @@
                                 <button class="btn btn-danger" type="submit">ELIMINAR</button>
                             </form>
                         </div>
+                        </div>
+                <div class="btn-group" role="group">
+                <a href="{{route('cancelar', $c->id)}}"class="btn btn-danger">CANCELAR</a>
+                <a href="{{route('regalo', $c->id)}}" class="btn btn-dark">REGALO</a>
+                </div>
                     </div>
                 </div>
                             </div>

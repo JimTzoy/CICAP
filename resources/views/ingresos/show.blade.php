@@ -17,12 +17,7 @@
       <div class="col-md-4">
         <img src="
         <?php 
-          $t = $ingreso->tipo;
-          if ( $t == "Ingreso") {
-            echo "../img/i/$ingreso->img";
-          }else{
-            echo "../img/e/$ingreso->img";
-          }
+            echo "../img/tiket/$ingreso->img";
         ?>
         " width="100%">
       </div>

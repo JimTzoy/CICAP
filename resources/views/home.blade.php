@@ -29,11 +29,13 @@
                       <!-- /.col -->
                       <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                          <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                          <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-envelope"></i></span>
 
                           <div class="info-box-content">
-                            <span class="info-box-text">Likes</span>
-                            <span class="info-box-number">41,410</span>
+                            <a href="{{ route('mensajes.index') }}">
+                            <span class="info-box-text">Mensajes</span>
+                            <span class="info-box-number">1</span>
+                            </a>
                           </div>
                           <!-- /.info-box-content -->
                         </div>
@@ -46,11 +48,13 @@
 
                       <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                          <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                          <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-invoice"></i></span>
 
                           <div class="info-box-content">
-                            <span class="info-box-text">Sales</span>
-                            <span class="info-box-number">760</span>
+                          <a href="{{ url('pagos/history') }}">
+                            <span class="info-box-text">Pagos</span>
+                            <span class="info-box-number">$ <?php echo number_format($p, 2, '.', '');?></span>
+                          </a>
                           </div>
                           <!-- /.info-box-content -->
                         </div>

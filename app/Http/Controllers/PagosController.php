@@ -51,6 +51,16 @@ class PagosController extends Controller
         return view('pagos.historial', ['pagos'=>$pagos]);
     }
      */
+    public function history(Request $request)
+    {
+         $request->user()->authorizeRoles(['admin']);
+         $carbon = new \Carbon\Carbon();
+        $fecha = $carbon->now()->toDateString();
+        $pagos = Db::table('pagos')->join('users','users.id','=','pagos.id_user')->join('banco','banco.id','=','pagos.idbanco')->join('contratos','contratos.id','=','pagos.id_contrato')->select('pagos.id','pagos.fechapago', 'pagos.cantidad','pagos.observacion', 'contratos.nombrecompleto', 'pagos.fechainicio', 'pagos.fechafin', 'pagos.created_at','banco.nbanco','users.name')->where('pagos.fechapago','=',$fecha)->get();
+        
+        $banco = Db::table('banco')->select('id','nbanco')->get();
+        return view('pagos.history', ['pagos'=>$pagos,'banco'=>$banco]);
+    }
     public function historial(Request $request)
     {
         $request->user()->authorizeRoles(['admin']);
@@ -117,6 +127,9 @@ class PagosController extends Controller
         $historial->save();
         $idc = $request->id;
         $estatus = "ACTIVO";
+        $ncontrato = Contratos::where('id','=',$idc)->value('nombrecompleto');
+        $h = $request->observacion;
+        $des = $h." de ".$ncontrato;
         $contrato = Contratos::findOrFail($idc);
         $contrato->fechainicio = $request->fechainicio;
         $contrato->fechafin = $request->fechafin;
@@ -128,7 +141,7 @@ class PagosController extends Controller
         $p = "Ingreso";
         $ingreso = new Ingreso();
         $ingreso->cantidad = $request->cantidad;
-        $ingreso->descripcion = $request->observacion;
+        $ingreso->descripcion = $des;
         $ingreso->tipo = $p;
         $ingreso->fecha = $request->fechapago;
         $ingreso->id_user = $id_user;

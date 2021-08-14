@@ -34,6 +34,7 @@ class HomeController extends Controller
         $request->user()->authorizeRoles(['user', 'admin','tecnico']);
          $contrato = Db::table('contratos')->join('plans', 'plans.id', '=', 'contratos.plan_id')->join('users','users.id','=','contratos.tecnico_id')->select('contratos.id','contratos.numerocliente','contratos.nombrecompleto',   'contratos.domicilio' ,'contratos.telefono', 'contratos.ipcliente' ,'contratos.ipantena',  'contratos.fechacontrato' , 'contratos.fechainicio',  'contratos.fechafin'  ,'plans.nombre as plan_id', 'contratos.instalacion','plans.precio' ,'users.name as tecnico_id', 'contratos.status', 'contratos.observacion'  ,'contratos.created_at', 'contratos.updated_at')->where('contratos.fechafin','<=',$fecha)->get();
         $pagos = Db::table('ingresos')->where('fecha','=',$fecha)->sum('cantidad');
-        return view('home',['contrato'=>$contrato,'pagos'=>$pagos]);
+        $p = Db::table('pagos')->where('fechapago','=',$fecha)->sum('cantidad');
+        return view('home',['contrato'=>$contrato,'pagos'=>$pagos,'p'=>$p]);
     }
 }

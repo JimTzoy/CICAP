@@ -44,7 +44,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <p>Siguiente pago:  <strong><?php echo strtoupper(strftime("%d de %B del %Y", strtotime(date('d-m-Y', strtotime($pa->fechafin))))); }?></strong>  (Pago por anticipado)</p>
-                        <p>Nota: Favor de anticipar su pago en CICAP con Alejandra, de lo contrario se cortará el servicio</p>
+                        <p>Nota: Favor de anticipar su pago en CIBERCICAP o a los numeros de cuenta correspondiente, de lo contrario se cortará el servicio</p>
                       </div>
                     </div>
                     <div class="row">
@@ -68,20 +68,16 @@
                       <div class="col-md-12">
                         <img src="../../img/img5.png" alt="" style="width: 100px; height:100px ">
                          <p>Lucio Texcahua Zepahua</p>
-                      <p>Si su servicio presenta alguna falla, favor de reportelo al<strong> 2721893654</strong> o al <strong>2722843738</strong></p>
+                      <p>Si su servicio presenta alguna falla, favor de reportelo al<strong> 272-126-0141</strong> o al <strong>2722843738</strong></p>
                       </div>
                     </div>
                     <br>
-                  <div class="row">
+                    <div class="row">
                     <div class="col-md-12">
-                      <h4 style="text-align: center;">CARACTERISTICAS DEL INTERNET </h4>
-                      <p><strong>Paquete Básico:</strong> Para un solo equipo e internet por cable.</p>
-                      <p><strong>Paquete Medio:</strong> Para uno a tres equipos con opción de Wifi.</p> 
-                      <p><strong>Paquete Plus:</strong> Para uno a tres equipos con opción de Wifi y más velocidad    </p>          
-                      <p>Nota: Para conectar más de un equipo y tener Wifi se requiere la instalación de un Reuter   </p>        
-                      <p>Fallas: En el caso de tener problemas con su servicio favor de reportarlo, para poder darle 
+                      <h4 style="text-align: center;">FALLAS</h4>
+                      <p>En el caso de tener problemas con su servicio favor de reportarlo, para poder darle 
                       solución a la brevedad posible para reponer los días perdidos a partir de su reporte.   </p> 
-                      <p>Cel. (WhatsApp):<strong> 272 7844107</strong></p>
+                      <p style="line-height:1%;">Cel. (WhatsApp):<strong> 272 126 0141</strong></p>
 
                     </div>
                   </div>

@@ -44,7 +44,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <p>Siguiente pago:  <strong><?php echo strtoupper(strftime("%d de %B del %Y", strtotime(date('d-m-Y', strtotime($pa->fechafin))))); }?></strong>  (Pago por anticipado)</p>
-                        <p>Nota: Favor de anticipar su pago en CIBERCICAP o a los numeros de cuenta correspondiente,, de lo contrario se cortará el servicio</p>
+                        <p>Nota: Favor de anticipar su pago en CIBERCICAP o a los numeros de cuenta correspondiente, de lo contrario se cortará el servicio</p>
                       </div>
                     </div>
                     <div class="row">

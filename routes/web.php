@@ -37,7 +37,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('pagos/historial', 'PagosController@historial');
-
+Route::get('pagos/history', 'PagosController@history');
 Route::resource('usuarios','UsuariosController');
 Route::resource('planes', 'PlanController');
 Route::resource('antenas', 'AntenaController');
@@ -48,6 +48,7 @@ Route::resource('pagos', 'PagosController');
 Route::resource('mensajes', 'MensajesController');
 Route::resource('ingresos','IngresoController');
 Route::resource('bancos','BancoController');
+Route::resource('cibers','CiberController');
 
 Route::get('contratos/suspender/{id}', [
     'as' => 'suspender', 'uses' => 'ContratosController@suspender'
