@@ -206,6 +206,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc1653', end
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('mikrotiks.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-wifi"></i>
+              <p>
+                Mikrotik
+              </p>
+            </a>
+          </li>
            <li class="nav-item">
             <a href="{{ route('tecnicos.index') }}" class="nav-link">
               <i class="nav-icon fas fa-users-cog"></i>

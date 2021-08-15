@@ -49,6 +49,7 @@ Route::resource('mensajes', 'MensajesController');
 Route::resource('ingresos','IngresoController');
 Route::resource('bancos','BancoController');
 Route::resource('cibers','CiberController');
+Route::resource('mikrotiks','MikrotikController');
 
 Route::get('contratos/suspender/{id}', [
     'as' => 'suspender', 'uses' => 'ContratosController@suspender'

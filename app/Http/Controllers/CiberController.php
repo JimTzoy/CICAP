@@ -7,10 +7,11 @@ use App\Banco;
 use Illuminate\Support\Facades\Auth;
 use App\Ingreso;
 use Illuminate\Support\Facades\DB;
-
+use \RouterOS\Client;
+use \RouterOS\Query;
 class CiberController extends Controller
 {
-        /**
+    /**
      * [__construct description]
      * Iinicializamos 
      */
@@ -36,7 +37,24 @@ class CiberController extends Controller
      */
     public function create()
     {
-        //
+
+
+// Initiate client with config object
+$client = new Client([
+    'host' => '192.168.200.1',
+    'user' => 'admin',
+    'pass' => '021697',
+    'port' => 8728,
+]);
+
+// Create "where" Query object for RouterOS
+$query =(new Query('/ip/hotspot/ip-binding/print'));
+
+// Send query and read response from RouterOS
+$response = $client->query($query)->read();
+
+var_dump($response);
+ return view('cibers.create');
     }
 
     /**

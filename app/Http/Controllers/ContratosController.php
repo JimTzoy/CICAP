@@ -33,7 +33,7 @@ class ContratosController extends Controller
         $request->user()->authorizeRoles(['admin']);
           $nombrecompleto = $request->get('busqueda');
         $contrato = Db::table('contratos')->join('antenas', 'antenas.id','=','contratos.antena_id')->join('plans', 'plans.id', '=', 'contratos.plan_id')->join('users','users.id','=','contratos.tecnico_id')->select('contratos.id','contratos.numerocliente','contratos.nombrecompleto',   'contratos.domicilio' ,'contratos.telefono', 'contratos.ipcliente' ,'contratos.ipantena',  'contratos.fechacontrato' , 'contratos.fechainicio',  'contratos.fechafin'  ,'plans.nombre as plan_id', 'contratos.instalacion','plans.precio', 'antenas.ip as antena_id' ,'users.name as tecnico_id', 'contratos.status', 'contratos.observacion'  ,'contratos.created_at', 'contratos.updated_at')->where('nombrecompleto','like', "%$nombrecompleto%")->orderBy('contratos.numerocliente','ASC')->paginate(10);
-
+ 
         return view('contratos.index',['contrato'=>$contrato]);
     }
 
