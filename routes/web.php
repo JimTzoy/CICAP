@@ -57,6 +57,9 @@ Route::get('contratos/suspender/{id}', [
 Route::get('/buscar', [
     'as' => 'buscar', 'uses' => 'IngresoController@buscar'
 ]);
+Route::get('/mkbuscar', [
+    'as' => 'mkbuscar', 'uses' => 'MikrotikController@mkbuscar'
+]);
 Route::get('/consultar', [
     'as' => 'consultar', 'uses' => 'BancoController@consultar'
 ]);
@@ -78,6 +81,15 @@ Route::get('pagos/index/{id}', [
 Route::get('students', [
     'uses' => 'TecnicoController@index',
     'as' => 'student-list'
+]);
+Route::get('mikrotiks/activar/{id}', [
+    'as' => 'activar', 'uses' => 'MikrotikController@activar'
+]);
+Route::get('mikrotiks/mklimites', [
+    'as' => 'mklimites', 'uses' => 'MikrotikController@mklimites'
+]);
+Route::get('mikrotiks/desactivar/{id}', [
+    'as' => 'desactivar', 'uses' => 'MikrotikController@desactivar'
 ]);
 Route::get('contratos/formato/{id}', [
     'as' => 'formato', 'uses' => 'ContratosController@formato'
