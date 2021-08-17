@@ -6,27 +6,24 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <a href="{{route('contratos.index')}}" title="" class="btn btn-danger">Regresar</a>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <h5 class="texto">INFORMACIÓN DE CONTRATO</h5>
                     </div>
-                    <div class="col-md-3" style="text-align: center;">
+                    <div class="col-md-6" style="text-align: center;">
                         <div class="btn-group" role="group">
-                            <a href="{{route('index', $contrato->id)}}" class="btn btn-info">PAGAR</a>
                             <a href="{{action('ContratosController@edit', $contrato->id)}}" class="btn btn-primary">EDITAR</a>
                             <form action="{{action('ContratosController@destroy', $contrato->id)}}" method="post">
                                 {{csrf_field()}}
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button class="btn btn-danger" type="submit">ELIMINAR</button>
                             </form>
+                            <a href="{{route('cancelar', $contrato->id)}}"class="btn btn-warning">CANCELAR</a>
+                            <a href="{{route('regalo', $contrato->id)}}" class="btn btn-dark">REGALO</a>
                         </div>
                         </div>
-                <div class="btn-group" role="group">
-                <a href="{{route('cancelar', $c->id)}}"class="btn btn-danger">CANCELAR</a>
-                <a href="{{route('regalo', $c->id)}}" class="btn btn-dark">REGALO</a>
-                </div>
                     </div>
                 </div>
                             </div>

@@ -53,6 +53,7 @@ Route::resource('cibers','CiberController');
 Route::get('contratos/suspender/{id}', [
     'as' => 'suspender', 'uses' => 'ContratosController@suspender'
 ]);
+
 Route::get('/buscar', [
     'as' => 'buscar', 'uses' => 'IngresoController@buscar'
 ]);
