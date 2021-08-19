@@ -36,6 +36,7 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
                             Registrar
                         </button>
+                        <a href="{{url('mikrotiks/limites')}}" class="btn btn-danger">DESACTIVAR</a> 
                       </div>
                       <div class="col-md-8">
                           <div >
@@ -44,7 +45,7 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                                   <input type="text" class="form-control" name="busqueda" id="busqueda" required="">
                                   <div class="input-group-append">
                                     <button class="btn btn-outline-primary" type="submit">Buscar</button>
-                                    <a href="{{action('MikrotikController@mklimites')}}" class="btn btn-danger">DESACTIVAR</a>  
+                                     
                                   </div>
                                 </div>
                             </form>

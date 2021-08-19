@@ -38,6 +38,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('pagos/historial', 'PagosController@historial');
 Route::get('pagos/history', 'PagosController@history');
+Route::get('mikrotiks/limites', 'MikrotikController@limites');
 Route::resource('usuarios','UsuariosController');
 Route::resource('planes', 'PlanController');
 Route::resource('antenas', 'AntenaController');
@@ -59,6 +60,12 @@ Route::get('/buscar', [
 ]);
 Route::get('/mkbuscar', [
     'as' => 'mkbuscar', 'uses' => 'MikrotikController@mkbuscar'
+]);
+Route::get('mikrotiks/activar/{id}', [
+    'as' => 'activar', 'uses' => 'MikrotikController@activar'
+]);
+Route::get('mikrotiks/desactivar/{id}', [
+    'as' => 'desactivar', 'uses' => 'MikrotikController@desactivar'
 ]);
 Route::get('/consultar', [
     'as' => 'consultar', 'uses' => 'BancoController@consultar'
@@ -82,15 +89,7 @@ Route::get('students', [
     'uses' => 'TecnicoController@index',
     'as' => 'student-list'
 ]);
-Route::get('mikrotiks/activar/{id}', [
-    'as' => 'activar', 'uses' => 'MikrotikController@activar'
-]);
-Route::get('mikrotiks/mklimites', [
-    'as' => 'mklimites', 'uses' => 'MikrotikController@mklimites'
-]);
-Route::get('mikrotiks/desactivar/{id}', [
-    'as' => 'desactivar', 'uses' => 'MikrotikController@desactivar'
-]);
+
 Route::get('contratos/formato/{id}', [
     'as' => 'formato', 'uses' => 'ContratosController@formato'
 ]);

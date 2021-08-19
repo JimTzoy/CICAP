@@ -64,23 +64,21 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                                     echo $key+1;
                                     echo "</td>";
                                     echo "<td>";
-                                    echo $p['mac-address'];
+                                    echo $p['name'];
                                     echo "</td>";
                                     echo "<td>";
                                         //echo $p['server'];
                                     echo "</td>";
                                     echo "<td>";
-                                        echo $p['type'];
+                                        echo $p['target'];
                                     echo "</td>";
                                     echo "<td>";
-                                        echo $p['bypassed'];
+                                        echo $p['priority'];
                                     echo "</td>";
                                     echo "<td>";
-                                        echo $p['disabled'];
+                                        echo $p['max-limit'];
                                     echo "</td>";
-                                    echo "<td>";
-                                        echo $p['comment'];
-                                    echo "</td>";
+                                    
                                 
                                   ?>
                                     <td>

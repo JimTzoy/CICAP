@@ -220,7 +220,7 @@ class MikrotikController extends Controller
         $response = $client->query($query)->read();
         return view('mikrotiks.mkbuscar',['response'=>$response]);
     }
-    public function mklimites(Request $request)
+    public function limites(Request $request)
     {
         $request->user()->authorizeRoles(['admin','tecnico']);
         $b = $request->busqueda;
@@ -232,14 +232,12 @@ class MikrotikController extends Controller
             'port' => 8728,
         ]);
 
-
-        // Create "where" Query object for RouterOS
-        $query =(new Query('/queue/simple/print'));
+        //$client->query('/queue/simple/print', ['target', '192.168.200.20/32'])->read();
+        $query =(new Query('/queue/simple/print'));//->select('id','mac-address as mac','address','server','type','bypassed','disabled','comment');
 
         // Send query and read response from RouterOS
         $response = $client->query($query)->read();
-        var_dump($response);
-        return view('mikrotiks.mklimites',['response'=>$response]);
+        return view('mikrotiks.limites',['response'=>$response]);
     }
     
     public function mkgraficas(Request $request)
