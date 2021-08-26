@@ -1,6 +1,10 @@
 @extends('layouts.layout')
-
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/chart.esm.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/helpers.esm.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.1/chart.js"></script>
+
 <div class="container">
    
     <div class="row justify-content-center">
@@ -87,6 +91,16 @@
                         </div>
                     @endif
                     @if(Auth::user()->hasRole('admin'))
+
+
+                      <div class="container-fluid">
+                        <div class="card">
+                        <br>
+                          <h3 class="card-title">Grafica de Ingreso e egresos</h3>
+                          <canvas id="myChart" height="300px"></canvas>
+                        </div>
+                      </div>
+
                         <div class="row">
 
                             <?php foreach ($contrato as $c) {
@@ -132,4 +146,38 @@ box-shadow: 2px 2px 21px 2px rgba(201,24,46,0.66);
         </div>
     </div>
 </div>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [<?php foreach($f as $f){?>"<?php echo strtoupper(strftime("%d de %B del %Y", strtotime(date('d-m-Y', strtotime($f->fecha)))));?>",<?php } ?>],
+        datasets: [
+            {
+            label: 'Ingresos',
+            data: [<?php foreach($t as $t){?><?php echo $t->u;?>,<?php } ?>],
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+               tension: 0.1
+            },
+            {
+            label: 'Egresos',
+            data: [<?php foreach($e as $e){?><?php echo $e->o;?>,<?php } ?>],
+              fill: false,
+              borderColor: 'rgb(225, 36, 24)',
+               tension: 0.1
+            }
+          ]
+    },
+    options: {
+      indexAxis: 'x',
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+      
+        }
+    }
+});
+</script>
 @endsection 

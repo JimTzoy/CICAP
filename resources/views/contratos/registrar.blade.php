@@ -25,7 +25,7 @@
                 </div>
                
                 <div class="card-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('contratos.store') }}">
+                    <form class="form-horizontal" method="GET" action="/registrarcontrato">
                         {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-4">

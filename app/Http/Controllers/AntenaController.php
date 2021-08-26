@@ -72,6 +72,7 @@ class AntenaController extends Controller
          $antena->calidad = $request->calidad;
          $antena->capacidad = $request->capacidad;
          $antena->conectadoa = $request->conectadoa;
+         $antena->stantena = 0;
          $antena->save();
         $d = (int)$antena->id;
         $historial = new HistorialAntenas();

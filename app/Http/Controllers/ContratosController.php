@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Antena;
 use App\Contratos;
 use App\Pagos;
 use App\HistorialPago;
@@ -47,8 +48,21 @@ class ContratosController extends Controller
         $request->user()->authorizeRoles(['admin']);
         $planes = Db::table('plans')->select('id','nombre', 'megas','precio')->get();
         $precioplan = Db::table('plans')->select('precio')->get();
-        $antenas = Db::table('antenas')->select('id','ip')->get();
+        $antenas = Db::table('antenas')->select('id','ip')->where('stantena','=','0')->get();
         return view('contratos.create',['planes'=>$planes, 'antenas'=>$antenas, 'precioplan'=>$precioplan]);
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function registrar(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin']);
+        $planes = Db::table('plans')->select('id','nombre', 'megas','precio')->get();
+        $precioplan = Db::table('plans')->select('precio')->get();
+        $antenas = Db::table('antenas')->select('id','ip')->where('stantena','=','0')->get();
+        return view('contratos.registrar',['planes'=>$planes, 'antenas'=>$antenas, 'precioplan'=>$precioplan]);
     }
 
     /**
@@ -121,6 +135,9 @@ class ContratosController extends Controller
         $historialp->id_pago = $a;
         $historialp->accion = $accionp;
         $historialp->save();
+        $antena = Antena::findOrFail($request->antena_id);
+        $antena->stantena = 1;
+        $antena->save();
         if ($contrato == null) {
              $notification = array(
                     'message' => 'ERROR. El contrato no se ha registrado', 
@@ -131,6 +148,60 @@ class ContratosController extends Controller
                     'message' => 'EXITO. Contrato registrado', 
                     'alert-type' => 'success'  );
          return redirect()->action('ContratosController@formatoA', [$a])->with($notification);
+        }
+
+
+    }
+     /**
+     * registrar newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function registrarcontrato(Request $request)
+    {
+        $request->user()->authorizeRoles(['admin','tecnico']);
+        $userid[] = Auth::user();
+        $id_user = $userid[0]['id'];
+        $estado = "ACTIVO";
+        $contrato = new Contratos();
+        $contrato->numerocliente = $request->numerocliente;
+        $contrato->nombrecompleto = $request->nombrecompleto;
+        $contrato->domicilio = $request->domicilio;
+        $contrato->telefono = $request->telefono;
+        $contrato->ipcliente = $request->ipcliente;
+        $contrato->ipantena = $request->ipantena;
+        $contrato->fechacontrato = $request->fechacontrato;
+        $contrato->fechainicio = $request->fechainicio;
+        $contrato->fechafin = $request->fechafin;
+        $contrato->instalacion = $request->instalacion;
+        $contrato->plan_id = $request->plan_id;
+        $contrato->antena_id = $request->antena_id;
+        $contrato->tecnico_id = $id_user;
+        $contrato->status = $estado;
+        $contrato->observacion = $request->observacion;
+        $contrato->save();
+        $d = (int)$contrato->id;
+        $accion = "REGISTRADO";
+        $historial = new HistorialContratos();
+        $historial->id_user = $id_user;
+        $historial->id_contratos = $d;
+        $historial->accion = $accion;
+        $historial->save();
+        $antena = Antena::findOrFail($request->antena_id);
+        $antena->stantena = 1;
+        $antena->save();
+        if ($contrato == null) {
+             $notification = array(
+                    'message' => 'ERROR. El contrato no se ha registrado', 
+                    'alert-type' => 'error'  );
+              return back()->with($notification);
+        }else{
+         $notification = array(
+                    'message' => 'EXITO. Contrato registrado', 
+                    'alert-type' => 'success'  );
+         return redirect()->action('ContratosController@index')->with($notification);
         }
 
 

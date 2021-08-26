@@ -57,10 +57,11 @@ box-shadow:         -5px 7px 19px 0px rgba(50, 50, 50, 0.43);
                
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                        <a href="{{route('contratos.create')}}" class="btn btn-primary">Crear Contrato</a>
+                       <a href="{{ url('contratos/registrar') }}" class="btn btn-danger">Registrar</a>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <div >
                           <form>
                               <div class="input-group mb-3">
